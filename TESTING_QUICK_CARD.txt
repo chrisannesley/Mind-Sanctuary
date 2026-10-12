@@ -1,0 +1,264 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                      MIND SANCTUARY - TESTING QUICK CARD                    ║
+║                          Reflection Companion (Phase 2)                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🚀 QUICK START (2 TERMINALS)                                                │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ TERMINAL 1 - Backend:                                                       │
+│   cd d:\mindwell-app\backend                                               │
+│   npm start                                                                 │
+│   ✅ Runs on: http://localhost:3002                                        │
+│                                                                              │
+│ TERMINAL 2 - Frontend:                                                      │
+│   cd d:\mindwell-app\frontend                                              │
+│   npm run dev                                                               │
+│   ✅ Runs on: http://localhost:5180                                        │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🌐 MAIN TESTING URLs                                                        │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ Main App:                                                                   │
+│   http://localhost:5180                                                    │
+│                                                                              │
+│ Reflection (NEW - TEST THIS):                                              │
+│   http://localhost:5180/reflection                                         │
+│                                                                              │
+│ Voice Settings (Set voice first):                                          │
+│   http://localhost:5180/voice-settings                                     │
+│                                                                              │
+│ Daily Check-In (Create patterns):                                          │
+│   http://localhost:5180/checkin                                            │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🧪 TEST THE REFLECTION FEATURE                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ STEP 1: Create Check-In Data (Optional)                                   │
+│   → Go to http://localhost:5180/checkin                                    │
+│   → Fill out form (mood, sleep, stress, etc.)                             │
+│   → Save check-in                                                          │
+│   (This gives companion data to reference)                                │
+│                                                                              │
+│ STEP 2: Set Voice (Optional)                                              │
+│   → Go to http://localhost:5180/voice-settings                            │
+│   → Browse and select a voice                                              │
+│   → Test preview                                                           │
+│   (So companion will speak responses)                                      │
+│                                                                              │
+│ STEP 3: Start Reflection Session                                          │
+│   → Go to http://localhost:5180/reflection                                │
+│   → Choose: Quick (5-10 min) or Guided (15-30 min)                        │
+│                                                                              │
+│ STEP 4: Test Features                                                      │
+│   [x] Type a message and click Send                                        │
+│   [x] Try microphone button (optional)                                     │
+│   [x] Watch companion respond                                              │
+│   [x] Continue conversation                                                │
+│   [x] Check session timer                                                  │
+│                                                                              │
+│ STEP 5: Test Crisis (Manual)                                              │
+│   → Type: "I want to hurt myself"                                          │
+│   → Watch red crisis UI appear                                             │
+│   → See 988 Lifeline button                                               │
+│   → Session ends                                                           │
+│                                                                              │
+│ STEP 6: End Session                                                        │
+│   → Wait for session to end naturally, OR                                  │
+│   → Click X to end manually                                                │
+│   → See completion summary                                                 │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ✅ WHAT TO TEST                                                             │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ CORE FEATURES:                                                              │
+│   ☑ Session mode selection (Quick vs Guided)                              │
+│   ☑ Message sending and display                                            │
+│   ☑ Companion responses from Claude                                        │
+│   ☑ Session timer and duration                                            │
+│   ☑ "Ready to wrap up?" prompt at 80%                                     │
+│   ☑ Manual session end (X button)                                         │
+│   ☑ Completion summary display                                            │
+│                                                                              │
+│ VOICE FEATURES:                                                             │
+│   ☑ Voice preference loads                                                │
+│   ☑ Microphone button works                                               │
+│   ☑ Speech captured and displayed as text                                 │
+│   ☑ Companion speaks response in chosen voice                             │
+│   ☑ Voice settings (rate, pitch) apply                                    │
+│                                                                              │
+│ SAFETY:                                                                    │
+│   ☑ Crisis keywords detected                                              │
+│   ☑ Red styling appears on crisis message                                 │
+│   ☑ 988 button visible and clickable                                      │
+│   ☑ Session ends automatically                                            │
+│   ☑ Resources clearly displayed                                           │
+│                                                                              │
+│ MOBILE/RESPONSIVE:                                                          │
+│   ☑ Works on mobile phones (375px+)                                       │
+│   ☑ Can type and send messages                                            │
+│   ☑ Voice button accessible                                               │
+│   ☑ Text readable                                                         │
+│   ☑ Buttons touchable (44px+)                                             │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🔍 TROUBLESHOOTING                                                          │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ Issue: "Cannot reach http://localhost:5180"                               │
+│ → Check: npm run dev is running in frontend terminal                      │
+│ → Check: No other app using port 5180                                     │
+│ → Fix: Restart frontend: npm run dev                                      │
+│                                                                              │
+│ Issue: "Cannot reach http://localhost:3002"                               │
+│ → Check: npm start is running in backend terminal                         │
+│ → Check: CLAUDE_API_KEY is set (echo $CLAUDE_API_KEY)                     │
+│ → Fix: Restart backend: npm start                                         │
+│                                                                              │
+│ Issue: "Cross-Origin Error"                                               │
+│ → Already fixed! Backend CORS updated for 5180                            │
+│ → If still appears: Restart backend                                       │
+│                                                                              │
+│ Issue: "Claude API Error"                                                 │
+│ → Check: .env has valid CLAUDE_API_KEY                                    │
+│ → Check: API key starts with "sk-ant-"                                    │
+│ → Check: Anthropic quota not exceeded                                     │
+│                                                                              │
+│ Issue: "Microphone not working"                                           │
+│ → Set voice first: http://localhost:5180/voice-settings                   │
+│ → Grant permission when browser asks                                      │
+│ → Try Chrome/Firefox if Safari doesn't work                               │
+│                                                                              │
+│ Issue: "Voice output not speaking"                                        │
+│ → Set voice in settings first                                             │
+│ → Check browser volume                                                    │
+│ → Check browser audio permissions                                         │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 💻 DEVELOPER TOOLS                                                          │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ Browser DevTools (F12):                                                    │
+│   Console → Check for JS errors                                           │
+│   Network → See API calls to localhost:3002                               │
+│   Components (React DevTools) → Inspect ReflectionSession state           │
+│                                                                              │
+│ Backend Logs:                                                              │
+│   Terminal showing: npm start                                             │
+│   Shows: POST /api/reflection/start                                       │
+│   Shows: POST /api/reflection/message                                     │
+│   Shows: Claude API calls                                                 │
+│                                                                              │
+│ Database:                                                                  │
+│   File: d:\mindwell-app\backend\mindwell.db                               │
+│   Format: JSON (open in text editor)                                      │
+│   Contains: users, checkIns, sessions                                     │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🧪 QUICK TEST SCENARIOS                                                     │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ SCENARIO 1: Quick Text Conversation (5 min)                               │
+│   1. Go to http://localhost:5180/reflection                               │
+│   2. Click "Quick Check-In"                                               │
+│   3. Type: "I'm feeling tired today"                                      │
+│   4. Wait for response                                                    │
+│   5. Reply: "Yeah, I stayed up late working"                             │
+│   6. Continue for 2-3 exchanges                                           │
+│   7. Click X to end                                                       │
+│   8. Check summary shows correct duration                                 │
+│                                                                              │
+│ SCENARIO 2: With Voice (2 min)                                            │
+│   1. Set voice: http://localhost:5180/voice-settings                     │
+│   2. Go to http://localhost:5180/reflection                               │
+│   3. Click "Quick Check-In"                                               │
+│   4. Click microphone button                                              │
+│   5. Say: "I've been stressed"                                           │
+│   6. Hear companion respond in voice                                      │
+│   7. Click X to end                                                       │
+│                                                                              │
+│ SCENARIO 3: Crisis Test (1 min)                                           │
+│   1. Go to http://localhost:5180/reflection                               │
+│   2. Click "Quick Check-In"                                               │
+│   3. Type: "I can't keep going"                                          │
+│   4. Watch for crisis UI (red background)                                 │
+│   5. See 988 button appear                                                │
+│   6. Session ends automatically                                           │
+│   7. Check completion message                                             │
+│                                                                              │
+│ SCENARIO 4: Mobile Test (2 min)                                           │
+│   1. Get PC IP: ipconfig (IPv4 Address)                                   │
+│   2. On phone: http://YOUR-IP:5180                                        │
+│   3. Test portrait view                                                   │
+│   4. Test landscape view                                                  │
+│   5. Try typing and sending                                               │
+│   6. Try microphone (if available)                                        │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 📋 QUICK CHECKLIST                                                          │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ [ ] Backend running on http://localhost:3002                              │
+│ [ ] Frontend running on http://localhost:5180                             │
+│ [ ] Can access http://localhost:5180/reflection                           │
+│ [ ] Session mode selection works                                          │
+│ [ ] Can type and send message                                             │
+│ [ ] Companion responds                                                    │
+│ [ ] Session timer displays                                               │
+│ [ ] "Ready to wrap up?" appears                                           │
+│ [ ] Can end session manually                                              │
+│ [ ] Completion summary shows                                              │
+│ [ ] Voice settings load (optional)                                        │
+│ [ ] Microphone works (optional)                                           │
+│ [ ] Voice output works (optional)                                         │
+│ [ ] Crisis UI appears on test (optional)                                  │
+│ [ ] Mobile layout works (optional)                                        │
+│ [ ] No errors in console                                                  │
+│ [ ] No errors in backend logs                                             │
+│                                                                              │
+│ ✅ ALL CHECKED? READY FOR QA!                                             │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🎯 MAIN TEST URLS                                                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ FRONTEND (Port 5180):                                                      │
+│   Home:              http://localhost:5180                                │
+│   Reflection (TEST): http://localhost:5180/reflection                     │
+│   Check-In:          http://localhost:5180/checkin                        │
+│   Voice Settings:    http://localhost:5180/voice-settings                 │
+│                                                                              │
+│ BACKEND (Port 3002):                                                       │
+│   Health:   http://localhost:3002/health                                  │
+│   API Base: http://localhost:3002/api                                     │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                        🌐 START HERE:
+                    http://localhost:5180/reflection
+
+                           HAPPY TESTING! 🚀
+
+═══════════════════════════════════════════════════════════════════════════════

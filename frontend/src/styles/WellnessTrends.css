@@ -1,0 +1,192 @@
+/* Wellness Trends / Insights */
+
+.wt-container {
+  min-height: 100vh;
+  color: #fff;
+  padding-bottom: 3rem;
+}
+
+.wt-loading, .wt-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #94a3b8;
+}
+
+.wt-empty p:first-child { font-size: 1.1rem; color: #e0e0e0; margin-bottom: 0.5rem; }
+
+/* ── Header ── */
+.wt-header {
+  background: linear-gradient(180deg, #333333 0%, #000000 100%);
+  border-bottom: 3px solid #e94560;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.wt-header h1 { font-size: 1.8rem; font-weight: 700; color: #fff; margin: 0 0 0.25rem; }
+.wt-subtitle  { color: #94a3b8; font-size: 0.9rem; margin: 0; }
+
+.wt-range { display: flex; gap: 0.5rem; }
+.wt-range-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #94a3b8;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.wt-range-btn:hover  { background: rgba(233,69,96,0.2); border-color: #e94560; color: #fff; }
+.wt-range-btn.active { background: #e94560; border-color: #e94560; color: #fff; }
+
+/* ── Body ── */
+.wt-body { max-width: 860px; margin: 0 auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ── Cards ── */
+.wt-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+}
+
+.wt-card h2 { font-size: 1rem; font-weight: 700; color: #fff; margin: 0 0 0.25rem; }
+.wt-card-sub  { font-size: 0.78rem; color: #94a3b8; margin: 0 0 1rem; }
+.wt-card-note { font-size: 0.75rem; color: #94a3b8; margin: 0.75rem 0 0; line-height: 1.5; }
+
+.wt-legend {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+/* ── Section titles ── */
+.wt-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0.5rem 0 0;
+}
+
+/* ── Insights grid ── */
+.wt-insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+
+/* ── Triggers ── */
+.wt-triggers { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.wt-trigger-row { display: flex; align-items: center; gap: 0.75rem; }
+
+.wt-trigger-name {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  width: 120px;
+  flex-shrink: 0;
+  text-transform: capitalize;
+}
+
+.wt-trigger-bar-wrap { flex: 1; background: rgba(255,255,255,0.08); border-radius: 4px; height: 10px; overflow: hidden; }
+.wt-trigger-bar { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+
+.wt-trigger-stats { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+.wt-trigger-mood  { font-size: 0.82rem; font-weight: 700; color: #e0e0e0; width: 42px; }
+.wt-trigger-diff  { font-size: 0.72rem; font-weight: 700; width: 52px; }
+.wt-trigger-diff.neg { color: #fca5a5; }
+.wt-trigger-diff.pos { color: #6ee7b7; }
+.wt-trigger-count { font-size: 0.7rem; color: #94a3b8; }
+
+/* ── Day of week ── */
+.wt-dow {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+  padding-top: 1.5rem;
+}
+
+.wt-dow-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.wt-dow-badge {
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.best-badge  { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+.worst-badge { background: rgba(239,68,68,0.2);  color: #fca5a5; }
+
+.wt-dow-val {
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  min-height: 12px;
+}
+
+.wt-dow-bar-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  align-items: flex-end;
+}
+
+.wt-dow-bar {
+  width: 70%;
+  max-width: 36px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.4s ease;
+}
+
+.wt-dow-label {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  text-align: center;
+  line-height: 1;
+}
+
+/* ── Summary stats row ── */
+.wt-stats-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.wt-stat {
+  flex: 1;
+  min-width: 100px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.wt-stat-val  { font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.3rem; }
+.wt-stat-unit { font-size: 0.9rem; color: #94a3b8; }
+.wt-stat-label { font-size: 0.68rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .wt-header { flex-direction: column; align-items: flex-start; padding: 1rem; }
+  .wt-body { padding: 1rem; }
+  .wt-insights-grid { grid-template-columns: 1fr; }
+  .wt-trigger-name { width: 80px; font-size: 0.75rem; }
+}

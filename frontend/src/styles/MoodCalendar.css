@@ -1,0 +1,383 @@
+/* Mood Calendar */
+
+.mcal-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+  color: #fff;
+  padding-bottom: 3rem;
+}
+
+.mcal-loading {
+  text-align: center;
+  padding: 4rem;
+  color: #94a3b8;
+}
+
+/* Header */
+.mcal-header {
+  background: linear-gradient(180deg, #333333 0%, #000000 100%);
+  border-bottom: 3px solid #3b82f6;
+  padding: 1.5rem 2rem;
+}
+
+.mcal-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.25rem;
+}
+
+.mcal-subtitle {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Body */
+.mcal-body {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Month nav */
+.mcal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.mcal-month-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.mcal-nav-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mcal-nav-btn:hover:not(:disabled) { background: rgba(255,255,255,0.15); }
+.mcal-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* Stats row */
+.mcal-stats {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.mcal-stat {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.mcal-stat-val {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #60a5fa;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.mcal-stat-label {
+  font-size: 0.65rem;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Grid */
+.mcal-grid-wrap {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.mcal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.mcal-grid-header {
+  margin-bottom: 4px;
+}
+
+.mcal-day-label {
+  font-size: 0.7rem;
+  color: #e2e8f0;
+  text-align: center;
+  padding: 0.25rem 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mcal-cell {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.04);
+  cursor: default;
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  min-height: 40px;
+}
+
+.mcal-cell-empty {
+  background: transparent;
+}
+
+.mcal-cell.has-data {
+  cursor: pointer;
+}
+
+.mcal-cell.has-data:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  z-index: 1;
+}
+
+.mcal-cell.is-today {
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.mcal-cell.selected {
+  box-shadow: 0 0 0 2px #3b82f6;
+  transform: scale(1.05);
+}
+
+.mcal-day-num {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.85);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.mcal-cell.has-data .mcal-day-num {
+  color: rgba(0,0,0,0.8);
+}
+
+.mcal-mood-num {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: rgba(0,0,0,0.9);
+  line-height: 1;
+}
+
+/* Legend */
+.mcal-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.mcal-legend-label {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.mcal-legend-bar {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+
+.mcal-legend-swatch {
+  flex: 1;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* Detail panel */
+.mcal-detail {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.mcal-detail h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 1rem;
+}
+
+.mcal-detail-entry {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.mcal-detail-entry:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.mcal-detail-time {
+  font-size: 0.72rem;
+  color: #64748b;
+  margin-bottom: 0.4rem;
+}
+
+.mcal-detail-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-bottom: 0.35rem;
+}
+
+.mcal-detail-metrics strong { color: #fff; }
+
+.mcal-detail-note {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #64748b;
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
+}
+
+/* Empty */
+.mcal-empty {
+  text-align: center;
+  color: #64748b;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .mcal-header { padding: 1rem; }
+  .mcal-body { padding: 1rem; }
+  .mcal-cell { min-height: 36px; }
+  .mcal-mood-num { font-size: 0.65rem; }
+  .mcal-stats { gap: 0.5rem; }
+  .mcal-stat-val { font-size: 1.1rem; }
+}
+
+/* ── Moving Average Chart ── */
+.mcal-chart-section {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mcal-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mcal-chart-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.mcal-chart-range {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.mcal-range-btn {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.13);
+  color: #94a3b8;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.mcal-range-btn:hover {
+  border-color: #6366f1;
+  color: #fff;
+}
+
+.mcal-range-btn.active {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+}
+
+.mcal-chart-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.mcal-chart-empty {
+  text-align: center;
+  color: #64748b;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.mcal-chart-legend {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  align-items: center;
+}
+
+.mcal-chart-legend span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mcal-chart-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.mcal-chart-maline {
+  display: inline-block;
+  width: 22px;
+  height: 3px;
+  background: #a5b4fc;
+  border-radius: 2px;
+}

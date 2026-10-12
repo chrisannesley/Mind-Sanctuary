@@ -1,0 +1,233 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║              MIND SANCTUARY - REFLECTION COMPANION READY                  ║
+║                     For Testing on Port 5180                              ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+🌐 FRONTEND PORT UPDATED TO 5180 ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 START TESTING (Open 2 terminals):
+
+  TERMINAL 1 - Backend:
+    cd d:\mindwell-app\backend
+    npm start
+    ✅ Runs on: http://localhost:3002
+
+  TERMINAL 2 - Frontend:
+    cd d:\mindwell-app\frontend  
+    npm run dev
+    ✅ Runs on: http://localhost:5180
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 MAIN TESTING URLs:
+
+  http://localhost:5180
+  → Main app (try all features)
+
+  ⭐ http://localhost:5180/reflection
+  → REFLECTION COMPANION (PRIMARY TEST)
+
+  http://localhost:5180/voice-settings
+  → Set voice first (optional but recommended)
+
+  http://localhost:5180/checkin
+  → Create check-in data for patterns
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ WHAT'S BEEN UPDATED:
+
+  ✓ Frontend vite.config.js → port changed to 5180
+  ✓ Backend src/index.js → CORS updated for localhost:5180
+  ✓ Backend dependencies → @anthropic-ai/sdk installed
+  ✓ Fully integrated and ready
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 TESTING DOCUMENTATION:
+
+  LOCAL_TESTING_URLS.md    → Complete list of all URLs & endpoints
+  TESTING_QUICK_CARD.txt   → Visual quick reference card
+  README_TESTING.md        → Full testing guide with scenarios
+  PHASE_2_COMPLETE_SUMMARY.md  → What was built
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 QUICK TEST CHECKLIST:
+
+  [ ] Terminal 1: Backend started on 3002
+  [ ] Terminal 2: Frontend started on 5180
+  [ ] Browser: Can open http://localhost:5180
+  [ ] Navigation: Can click "Reflection (💭)" menu
+  [ ] Session: Can select Quick or Guided mode
+  [ ] Messaging: Can type and send message
+  [ ] Response: Companion responds from Claude
+  [ ] Timer: Session timer displays
+  [ ] End: Can click X to end session
+  [ ] Summary: Completion screen shows
+  [ ] No Errors: Check browser console (F12)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 BASIC TEST (3 minutes):
+
+  1. Start both servers (see above)
+  2. Open: http://localhost:5180/reflection
+  3. Click: "Quick Check-In"
+  4. Type: "How do I manage stress better?"
+  5. Wait for response
+  6. Type: "I usually stay up late"
+  7. Wait for response
+  8. Click X to end
+  9. Check completion summary
+  
+  Expected: ✅ Conversation flows, timer shows, session ends properly
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎤 VOICE TEST (optional, 2 minutes):
+
+  1. Open: http://localhost:5180/voice-settings
+  2. Select a voice
+  3. Test the preview
+  4. Go to: http://localhost:5180/reflection
+  5. Start Quick session
+  6. Type message
+  7. Hear companion respond in voice
+  
+  Expected: ✅ Voice settings work, companion speaks
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚨 CRISIS TEST (1 minute):
+
+  1. Open: http://localhost:5180/reflection
+  2. Start Quick session
+  3. Type: "I can't keep going"
+  4. Watch for red background
+  5. See 988 button appear
+  6. Session ends
+  
+  Expected: ✅ Crisis detected, resources shown
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 TROUBLESHOOTING:
+
+  Frontend won't load?
+  → Check: npm run dev is running
+  → Check: Using port 5180 (not 5174)
+  → Fix: Restart frontend
+
+  Companion doesn't respond?
+  → Check: Backend running (npm start)
+  → Check: CLAUDE_API_KEY is set
+  → Fix: Restart backend
+
+  CORS error?
+  → Already fixed for port 5180
+  → Restart backend if issue persists
+
+  Voice not working?
+  → Set voice in settings first
+  → Grant microphone permission
+  → Try Chrome/Firefox
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 FEATURES TO TEST:
+
+  CORE:
+  ✓ Session mode selection
+  ✓ Message sending/receiving
+  ✓ Companion responses
+  ✓ Session timer
+  ✓ End session
+  ✓ Completion summary
+
+  VOICE (Optional):
+  ✓ Voice preferences
+  ✓ Microphone input
+  ✓ Voice output
+  ✓ Voice settings
+
+  SAFETY:
+  ✓ Crisis detection
+  ✓ Crisis UI display
+  ✓ 988 button
+  ✓ Resource links
+
+  MOBILE (Optional):
+  ✓ Works at small widths
+  ✓ Buttons touchable
+  ✓ Text readable
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+API ENDPOINTS (for developers):
+
+  POST http://localhost:3002/api/reflection/start
+  POST http://localhost:3002/api/reflection/message
+  POST http://localhost:3002/api/reflection/end
+  GET  http://localhost:3002/api/reflection/instructions
+  GET  http://localhost:3002/health
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 SUCCESS CRITERIA:
+
+  ✅ Can start both servers
+  ✅ Can open http://localhost:5180/reflection
+  ✅ Can start a session
+  ✅ Can send and receive messages
+  ✅ Companion responds coherently
+  ✅ Session timer works
+  ✅ Can end session
+  ✅ No console errors
+  ✅ No CORS errors
+  ✅ Backend responding
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 ENVIRONMENT CHECK:
+
+  Make sure .env has:
+  CLAUDE_API_KEY=sk-ant-YOUR-KEY-HERE
+
+  Verify:
+  echo $CLAUDE_API_KEY
+  Should show: sk-ant-...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 STATUS: PRODUCTION READY FOR QA
+
+          Ready for: Testing → Staging → Production
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NEXT STEPS:
+
+  1. Open 2 terminals (see above)
+  2. Start both servers
+  3. Open http://localhost:5180/reflection
+  4. Follow test checklist
+  5. Try the 3-minute basic test
+  6. Report any issues
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Need help? Read:
+  - LOCAL_TESTING_URLS.md (all URLs)
+  - TESTING_QUICK_CARD.txt (quick reference)
+  - README_TESTING.md (full guide)
+
+Happy Testing! 🚀
+
+Frontend: http://localhost:5180
+Backend: http://localhost:3002
+Reflection: http://localhost:5180/reflection
+
+╚════════════════════════════════════════════════════════════════════════════╝

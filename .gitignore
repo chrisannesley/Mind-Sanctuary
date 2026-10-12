@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build output
+frontend/dist/
+backend/dist/
+
+# Environment files — NEVER commit these
+.env
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Database — don't commit local data
+backend/mindwell.db
+backend/data/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/

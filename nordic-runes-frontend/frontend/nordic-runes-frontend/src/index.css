@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@layer components {
+  .rune-symbol {
+    @apply text-6xl font-bold text-norse-700;
+  }
+
+  .rune-card {
+    @apply bg-white rounded-lg shadow-lg p-6 border-l-4 border-norse-600;
+  }
+
+  .button-primary {
+    @apply bg-norse-700 hover:bg-norse-800 text-white font-bold py-3 px-6 rounded-lg transition;
+  }
+
+  .button-secondary {
+    @apply bg-norse-300 hover:bg-norse-400 text-norse-900 font-bold py-3 px-6 rounded-lg transition;
+  }
+}

@@ -1,0 +1,287 @@
+/* ══════════════════════════════════════════════════════
+   Mind Sanctuary — Unified Dark Theme
+   Overrides Tailwind white/grey classes app-wide
+   ══════════════════════════════════════════════════════ */
+
+/* ── Page backgrounds ── */
+.min-h-screen.bg-gray-50,
+.min-h-screen.bg-gray-100,
+.min-h-screen.bg-white {
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 100%) !important;
+}
+
+/* ── White cards → dark cards ── */
+.bg-white {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #e0e0e0 !important;
+}
+
+.bg-gray-50  { background: rgba(255, 255, 255, 0.04) !important; }
+.bg-gray-100 { background: rgba(255, 255, 255, 0.05) !important; }
+
+/* ── Shadows → dark card borders ── */
+.shadow,
+.shadow-sm,
+.shadow-md,
+.shadow-lg,
+.shadow-xl {
+  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ── Text colours ── */
+.text-gray-900, .text-gray-800 { color: #ffffff !important; }
+.text-gray-700, .text-gray-600 { color: #e0e0e0 !important; }
+.text-gray-500, .text-gray-400 { color: #94a3b8 !important; }
+
+/* ── Headings ── */
+h1.text-gray-800, h2.text-gray-800, h3.text-gray-800,
+h1.text-gray-900, h2.text-gray-900, h3.text-gray-900 {
+  color: #ffffff !important;
+}
+
+/* ── Borders ── */
+.border-gray-200, .border-gray-300 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ── Form inputs ── */
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #e0e0e0 !important;
+  border-radius: 8px !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(33, 150, 243, 0.5) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.15) !important;
+}
+
+select option {
+  background: #1e2a4a !important;
+  color: #e0e0e0 !important;
+}
+
+/* ── Buttons ── */
+.bg-indigo-600, .bg-mindwell-600, .bg-blue-600 {
+  background: #2196F3 !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.bg-indigo-600:hover, .bg-mindwell-600:hover, .bg-blue-600:hover {
+  background: #1976D2 !important;
+}
+
+.bg-green-600 { background: #10b981 !important; color: #fff !important; }
+.bg-green-600:hover { background: #059669 !important; }
+
+.bg-red-600 { background: #e94560 !important; color: #fff !important; }
+
+/* ── Coloured bg cards (severity, status) ── */
+.bg-green-50  { background: rgba(16, 185, 129, 0.1) !important; }
+.bg-yellow-50 { background: rgba(245, 158, 11, 0.1) !important; }
+.bg-orange-50 { background: rgba(249, 115, 22, 0.1) !important; }
+.bg-red-50    { background: rgba(239, 68, 68, 0.1)  !important; }
+.bg-blue-50   { background: rgba(59, 130, 246, 0.1) !important; }
+.bg-purple-50 { background: rgba(139, 92, 246, 0.1) !important; }
+.bg-indigo-50 { background: rgba(99, 102, 241, 0.1) !important; }
+
+/* ── Coloured text within those cards ── */
+.text-green-800, .text-green-900 { color: #6ee7b7 !important; }
+.text-yellow-800, .text-yellow-900 { color: #fde68a !important; }
+.text-orange-800, .text-orange-900 { color: #fed7aa !important; }
+.text-red-800, .text-red-900 { color: #fca5a5 !important; }
+.text-blue-800, .text-blue-900 { color: #93c5fd !important; }
+.text-purple-800, .text-purple-900 { color: #d8b4fe !important; }
+.text-indigo-800, .text-indigo-900 { color: #c7d2fe !important; }
+
+/* Accent colours keep their vibrance */
+.text-green-600  { color: #10b981 !important; }
+.text-yellow-600 { color: #f59e0b !important; }
+.text-red-600    { color: #e94560 !important; }
+.text-blue-600   { color: #2196F3 !important; }
+.text-purple-600 { color: #8b5cf6 !important; }
+.text-orange-600 { color: #f97316 !important; }
+.text-indigo-600, .text-mindwell-600 { color: #2196F3 !important; }
+
+/* ── Border left accents — keep coloured ── */
+.border-l-4.border-green-500  { border-left-color: #10b981 !important; }
+.border-l-4.border-yellow-500 { border-left-color: #f59e0b !important; }
+.border-l-4.border-red-500    { border-left-color: #e94560 !important; }
+.border-l-4.border-blue-500   { border-left-color: #2196F3 !important; }
+.border-l-4.border-orange-500 { border-left-color: #f97316 !important; }
+.border-l-4.border-mindwell-500 { border-left-color: #2196F3 !important; }
+
+/* ── Progress bars ── */
+.bg-gray-200 { background: rgba(255, 255, 255, 0.1) !important; }
+.bg-mindwell-600.h-2 { background: #2196F3 !important; }
+.bg-green-500 { background: #10b981 !important; }
+.bg-yellow-500 { background: #f59e0b !important; }
+.bg-red-500 { background: #e94560 !important; }
+
+/* ── Tables ── */
+thead.bg-gray-50,
+.bg-gray-50.border-b { background: rgba(255,255,255,0.06) !important; }
+
+tr:hover .hover\:bg-gray-50 { background: rgba(255,255,255,0.04) !important; }
+
+/* ── Dividers ── */
+.border-b.border-gray-200,
+.border-t.border-gray-200 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ── Badges / pills ── */
+.bg-green-100.text-green-800 {
+  background: rgba(16,185,129,0.15) !important;
+  color: #6ee7b7 !important;
+}
+
+.bg-yellow-100.text-yellow-800 {
+  background: rgba(245,158,11,0.15) !important;
+  color: #fde68a !important;
+}
+
+.bg-red-100.text-red-800 {
+  background: rgba(239,68,68,0.15) !important;
+  color: #fca5a5 !important;
+}
+
+.bg-orange-100.text-orange-800 {
+  background: rgba(249,115,22,0.15) !important;
+  color: #fed7aa !important;
+}
+
+.bg-blue-100.text-blue-800 {
+  background: rgba(59,130,246,0.15) !important;
+  color: #93c5fd !important;
+}
+
+/* ── Checkbox inputs ── */
+input[type="checkbox"] {
+  background: rgba(255,255,255,0.1) !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+}
+
+/* ── Links ── */
+a.text-blue-600, a.text-mindwell-600, a.text-indigo-600 {
+  color: #60a5fa !important;
+}
+
+a.text-blue-600:hover { color: #93c5fd !important; }
+
+/* ── Animated pulse skeleton ── */
+.bg-gray-200.rounded-lg.animate-pulse {
+  background: rgba(255,255,255,0.08) !important;
+}
+
+/* ── Gradient section cards ── */
+.bg-gradient-to-r.from-blue-50.to-indigo-50,
+.bg-gradient-to-r.from-green-50.to-emerald-50,
+.bg-gradient-to-r.from-orange-50.to-red-50 {
+  background: rgba(255,255,255,0.05) !important;
+}
+
+/* ── EnhancedCheckInForm — keep section cards readable ── */
+
+/* Section card backgrounds — restore as semi-transparent tinted */
+.bg-gradient-to-r.from-blue-50.to-indigo-50,
+.bg-gradient-to-r.from-yellow-50.to-orange-50,
+.bg-gradient-to-r.from-purple-50.to-pink-50,
+.bg-gradient-to-r.from-red-50.to-orange-50,
+.bg-gradient-to-r.from-green-50.to-emerald-50,
+.bg-gradient-to-r.from-gray-50 {
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* Section card border-left accents */
+.border-l-4.border-blue-500   { border-left-color: #3b82f6 !important; }
+.border-l-4.border-yellow-500 { border-left-color: #f59e0b !important; }
+.border-l-4.border-purple-500 { border-left-color: #8b5cf6 !important; }
+.border-l-4.border-red-500    { border-left-color: #ef4444 !important; }
+.border-l-4.border-green-500  { border-left-color: #10b981 !important; }
+.border-l-4.border-gray-400   { border-left-color: rgba(255,255,255,0.2) !important; }
+
+/* Label text inside form sections */
+.text-lg.font-semibold.text-gray-800,
+label.text-lg.font-semibold,
+label.text-sm.font-semibold,
+label.block.text-sm {
+  color: #e0e0e0 !important;
+}
+
+/* Range slider labels (Exhausted, Moderate, Energized etc.) */
+.text-xs.text-gray-600,
+.flex.justify-between .text-xs {
+  color: #94a3b8 !important;
+}
+
+/* Number display (5/10) */
+.text-2xl.font-bold.text-blue-600  { color: #60a5fa !important; }
+.text-2xl.font-bold.text-yellow-600 { color: #fbbf24 !important; }
+.text-2xl.font-bold.text-red-600   { color: #f87171 !important; }
+
+/* Social interaction buttons — unselected */
+button.border-2.border-gray-300 {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  color: #e0e0e0 !important;
+}
+
+/* Social interaction buttons — selected */
+button.border-2.border-green-500 {
+  background: rgba(16,185,129,0.15) !important;
+  border-color: #10b981 !important;
+  color: #6ee7b7 !important;
+}
+
+/* Number input (sleep hours) */
+input[type="number"] {
+  background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  color: #e0e0e0 !important;
+}
+
+/* Tips box */
+.bg-blue-50.p-4.rounded-lg.border-l-4.border-blue-500 p {
+  color: #93c5fd !important;
+}
+
+.bg-blue-50.p-4.rounded-lg.border-l-4.border-blue-500 h3 {
+  color: #bfdbfe !important;
+}
+
+/* Stress source input placeholder */
+input[placeholder*="stress"]::placeholder,
+textarea[placeholder*="stress"]::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Additional details toggle button */
+button.text-blue-600.hover\:text-blue-800 {
+  color: #60a5fa !important;
+}
+
+/* Checkbox labels */
+label.flex.items-center span.text-sm.text-gray-700 {
+  color: #e0e0e0 !important;
+}
+
+/* Submit button */
+.bg-gradient-to-r.from-blue-600.to-indigo-600,
+.bg-gradient-to-r.from-blue-700.to-indigo-700 {
+  background: linear-gradient(135deg, #2196F3, #1976D2) !important;
+  color: #fff !important;
+}

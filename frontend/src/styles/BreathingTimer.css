@@ -1,0 +1,148 @@
+/* Breathing Timer */
+
+.breath-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+  color: #fff;
+  padding-bottom: 3rem;
+}
+
+.breath-header {
+  background: linear-gradient(180deg, #333333 0%, #000000 100%);
+  border-bottom: 3px solid #10b981;
+  padding: 1.5rem 2rem;
+}
+
+.breath-header h1 { font-size: 1.8rem; font-weight: 700; color: #fff; margin: 0 0 0.25rem; }
+.breath-subtitle  { color: #94a3b8; font-size: 0.9rem; margin: 0; }
+
+.breath-body {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Exercise cards */
+.breath-exercises {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.breath-ex-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.breath-ex-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); }
+.breath-ex-card.active { border-color: #10b981; background: rgba(16,185,129,0.1); }
+
+.breath-ex-name    { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+.breath-ex-benefit { font-size: 0.72rem; color: #10b981; margin-bottom: 0.6rem; }
+
+.breath-ex-phases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.breath-ex-phase {
+  font-size: 0.65rem;
+  color: rgba(0,0,0,0.7);
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* Timer section */
+.breath-timer { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+
+.breath-info { text-align: center; }
+.breath-info h2 { font-size: 1.3rem; font-weight: 700; margin: 0 0 0.4rem; color: #fff; }
+.breath-desc  { font-size: 0.85rem; color: #94a3b8; margin: 0; line-height: 1.5; max-width: 340px; }
+
+/* Cycles selector */
+.breath-cycles-row { display: flex; align-items: center; gap: 0.6rem; }
+.breath-cycles-label { font-size: 0.82rem; color: #94a3b8; }
+
+.breath-cycle-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #94a3b8;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.breath-cycle-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+.breath-cycle-btn.active { background: #10b981; border-color: #10b981; color: #fff; }
+
+/* Circle */
+.breath-circle-wrap { width: 200px; height: 200px; }
+.breath-svg { width: 100%; height: 100%; }
+
+/* Overall bar */
+.breath-overall-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.breath-overall-fill {
+  height: 100%;
+  background: #10b981;
+  border-radius: 2px;
+  transition: width 1s linear;
+}
+
+/* Controls */
+.breath-controls { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+
+.breath-btn {
+  padding: 0.65rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.breath-btn-start  { background: #10b981; color: #fff; }
+.breath-btn-start:hover  { background: #059669; }
+.breath-btn-stop   { background: #f59e0b; color: #fff; }
+.breath-btn-stop:hover   { background: #d97706; }
+.breath-btn-reset  { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #e0e0e0; }
+.breath-btn-reset:hover  { background: rgba(255,255,255,0.18); }
+
+.breath-done-msg {
+  width: 100%;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #6ee7b7;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  line-height: 1.5;
+}
+
+.breath-prompt { text-align: center; color: #94a3b8; font-size: 0.9rem; padding: 2rem 0; }
+
+@media (max-width: 480px) {
+  .breath-header { padding: 1rem; }
+  .breath-body   { padding: 1rem; }
+  .breath-exercises { grid-template-columns: 1fr; }
+}
