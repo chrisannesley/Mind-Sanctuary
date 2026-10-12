@@ -533,7 +533,8 @@ class Database {
     return this.data.checkIns.find(c => c.userId === userId && new Date(c.timestamp).toDateString() === today)
   }
   createCheckIn(userId, checkInData) {
-    const newCheckIn = { id: this.data.nextCheckInId++, userId, ...checkInData, timestamp: new Date().toISOString() }
+    const { _overrideTimestamp, ...data } = checkInData
+    const newCheckIn = { id: this.data.nextCheckInId++, userId, ...data, timestamp: _overrideTimestamp || new Date().toISOString() }
     this.data.checkIns.push(newCheckIn)
     const user = this.getUser(userId)
     if (user) user.lastCheckIn = newCheckIn.timestamp
@@ -950,7 +951,13 @@ app.post("/api/checkins", (req, res) => {
     triggers: checkInData.triggers || '',
     physicalSymptoms: checkInData.physicalSymptoms || [],
     couldHelp: checkInData.couldHelp || '',
-    journalNote: checkInData.journalNote || ''
+    journalNote: checkInData.journalNote || '',
+    substanceUse: checkInData.substanceUse || null,
+  }
+
+  // Allow seed scripts to supply a historic timestamp
+  if (checkInData._seedTimestamp) {
+    enrichedData._overrideTimestamp = checkInData._seedTimestamp
   }
   
   const newCheckIn = db.createCheckIn(parseInt(userId), enrichedData)
