@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import WeeklyPatterns from '../components/WeeklyPatterns'
 import CrisisResources from '../components/CrisisResources'
 import FeedbackModal from '../components/FeedbackModal'
+import AdminPanel from '../components/AdminPanel'
 import { getTodayCheckIn, getHabits, getCheckIns } from '../utils/api'
 import { computeInsights } from '../utils/insightsEngine'
 import { computeDashboardSnapshot } from '../utils/trendAnalytics'
@@ -104,6 +105,7 @@ function Dashboard({ userId }) {
   const [insights,     setInsights]     = useState([])
   const [snapshot,     setSnapshot]     = useState(null)
   const [showFeedback, setShowFeedback] = useState(false)
+  const [showAdmin,    setShowAdmin]    = useState(false)
 
   useEffect(() => {
     getCheckIns(userId)
@@ -127,28 +129,26 @@ function Dashboard({ userId }) {
             <p>All your wellness tools in one place</p>
           </div>
         </div>
-        <button
-          onClick={() => setShowFeedback(true)}
-          style={{
-            background: 'rgba(99,102,241,0.2)',
-            border: '1px solid rgba(99,102,241,0.5)',
-            borderRadius: '10px',
-            padding: '0.55rem 1rem',
-            color: '#a5b4fc',
-            fontWeight: 700,
-            fontSize: '0.85rem',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            flexShrink: 0,
-          }}
-        >
-          💬 Give Feedback
-        </button>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          {userId === 1 && (
+            <button onClick={() => setShowAdmin(true)} style={{
+              background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)',
+              borderRadius: '10px', padding: '0.55rem 1rem', color: '#94a3b8',
+              fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: '0.4rem',
+            }}>🛡️ Admin</button>
+          )}
+          <button onClick={() => setShowFeedback(true)} style={{
+            background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.5)',
+            borderRadius: '10px', padding: '0.55rem 1rem', color: '#a5b4fc',
+            fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0,
+          }}>💬 Give Feedback</button>
+        </div>
       </div>
 
       <FeedbackModal isOpen={showFeedback} onClose={() => setShowFeedback(false)} userId={userId} />
+      <AdminPanel    isOpen={showAdmin}    onClose={() => setShowAdmin(false)} />
 
       {/* Wellness Snapshot banner */}
       {snapshot && (

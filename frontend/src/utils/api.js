@@ -78,3 +78,8 @@ export const getCrisisResourcesByCountry = (country) => apiClient.get(`/api/cris
 
 // Feedback endpoint
 export const submitFeedback = (userId, feedbackData) => apiClient.post(`/api/feedback?userId=${userId}`, feedbackData)
+
+// Admin endpoint
+export const getAdminSummary = () => apiClient.get('/api/admin/summary?key=mindwell-admin-2026')
+
+export default apiClient
