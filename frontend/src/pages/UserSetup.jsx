@@ -18,19 +18,26 @@ const CONCERNS = [
 export default function UserSetup({ onSetup }) {
   const navigate    = useNavigate()
   const [name,      setName]      = useState('')
-  const [concern,   setConcern]   = useState('')
+  const [concerns,  setConcerns]  = useState([])
   const [loading,   setLoading]   = useState(false)
   const [error,     setError]     = useState('')
 
+  const toggleConcern = (c) => {
+    setConcerns(prev =>
+      prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c]
+    )
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!name.trim())    { setError('Please enter your name.'); return }
-    if (!concern)        { setError('Please select what brings you here.'); return }
+    if (!name.trim())         { setError('Please enter your name.'); return }
+    if (!concerns.length)     { setError('Please select at least one area that brings you here.'); return }
 
     setLoading(true)
     setError('')
     try {
-      const res  = await setupUser(name.trim(), concern)
+      // Backend expects a single mainConcern string — join multiples
+      const res  = await setupUser(name.trim(), concerns.join(', '))
       const user = res.data
       localStorage.setItem('mw_userId', String(user.id))
       onSetup(user)
@@ -93,33 +100,58 @@ export default function UserSetup({ onSetup }) {
             />
           </div>
 
-          {/* Concern */}
+          {/* Concerns — multi-select */}
           <div style={{ marginBottom: '1.75rem' }}>
-            <label style={{ display: 'block', fontWeight: 600, color: '#e2e8f0', fontSize: '0.88rem', marginBottom: '0.5rem' }}>
-              What brings you here?
-            </label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.5rem' }}>
+              <label style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '0.88rem' }}>
+                What brings you here?
+              </label>
+              {concerns.length > 0 && (
+                <span style={{ fontSize: '0.75rem', color: '#a5b4fc', fontWeight: 600 }}>
+                  {concerns.length} selected
+                </span>
+              )}
+            </div>
+            <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.75rem' }}>
+              Select all that apply
+            </p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
-              {CONCERNS.map(c => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setConcern(c)}
-                  style={{
-                    padding: '0.6rem 0.75rem',
-                    borderRadius: '8px',
-                    fontSize: '0.82rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    border: concern === c ? '2px solid #6366f1' : '1px solid rgba(255,255,255,0.12)',
-                    background: concern === c ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.05)',
-                    color: concern === c ? '#c7d2fe' : '#94a3b8',
-                    transition: 'all 0.15s',
-                  }}
-                >
-                  {c}
-                </button>
-              ))}
+              {CONCERNS.map(c => {
+                const selected = concerns.includes(c)
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => toggleConcern(c)}
+                    style={{
+                      padding: '0.6rem 0.75rem',
+                      borderRadius: '8px',
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      border: selected ? '2px solid #6366f1' : '1px solid rgba(255,255,255,0.12)',
+                      background: selected ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.05)',
+                      color: selected ? '#c7d2fe' : '#94a3b8',
+                      transition: 'all 0.15s',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                    }}
+                  >
+                    <span style={{
+                      width: 14, height: 14, borderRadius: '3px', flexShrink: 0,
+                      border: selected ? '2px solid #6366f1' : '2px solid rgba(255,255,255,0.2)',
+                      background: selected ? '#6366f1' : 'transparent',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '0.6rem', color: '#fff',
+                    }}>
+                      {selected ? '✓' : ''}
+                    </span>
+                    {c}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
