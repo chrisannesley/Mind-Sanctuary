@@ -9,42 +9,101 @@ function SplashLanding({ hasAccount }) {
   }
 
   return (
-    <div 
-      className="min-h-screen flex items-center justify-center p-4 cursor-pointer relative overflow-hidden"
-      onClick={handleEnter}
+    <div
       style={{
-        backgroundColor: '#f5f1ed',
+        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        position: 'relative',
+        overflow: 'hidden',
+        backgroundColor: '#0a0a14',
+        padding: '2rem 1.5rem',
       }}
     >
-      {/* Background Icon - covering entire page */}
-      <img 
-        src="/mind-sanctuary-icon.png" 
-        alt="Mind Sanctuary" 
+      {/* Background image */}
+      <img
+        src="/mind-sanctuary-icon.png"
+        alt="Mind Sanctuary"
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          opacity: 1,
-          zIndex: 0
+          position: 'absolute', top: 0, left: 0,
+          width: '100%', height: '100%',
+          objectFit: 'cover', opacity: 1, zIndex: 0,
         }}
       />
 
-      {/* Content overlay */}
-      <div className="relative z-10">
-        <h1 className="text-5xl font-bold text-center text-white mb-4">Mind Sanctuary</h1>
-        <p className="text-xl text-white text-center mb-12">Your space for mental wellbeing</p>
-        <p className="text-sm text-white text-center">{hasAccount ? 'Click anywhere to enter' : 'Click anywhere to get started'}</p>
-      </div>
+      {/* Dark gradient overlay — stronger at bottom so text is readable */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.88) 100%)',
+      }} />
 
-      {/* Optional overlay for click feedback */}
-      <div className="absolute inset-0 bg-black opacity-0 hover:opacity-5 transition-opacity duration-300 z-20"></div>
+      {/* Content */}
+      <div style={{
+        position: 'relative', zIndex: 2,
+        textAlign: 'center', maxWidth: 500, width: '100%',
+        paddingBottom: '3rem',
+      }}>
+        <h1 style={{
+          fontSize: 'clamp(2rem, 6vw, 3rem)',
+          fontWeight: 800, color: '#fff',
+          marginBottom: '0.75rem', lineHeight: 1.15,
+          textShadow: '0 2px 12px rgba(0,0,0,0.5)',
+        }}>
+          Mind Sanctuary
+        </h1>
+
+        <p style={{
+          fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+          color: '#e2d9f3',
+          lineHeight: 1.65,
+          marginBottom: '2rem',
+          textShadow: '0 1px 6px rgba(0,0,0,0.5)',
+        }}>
+          Understand yourself better. Track your mood, sleep and stress — and discover what actually affects how you feel.
+        </p>
+
+        {/* Feature pills */}
+        <div style={{
+          display: 'flex', flexWrap: 'wrap', gap: '0.5rem',
+          justifyContent: 'center', marginBottom: '2rem',
+        }}>
+          {['Daily Check-In', 'Mood Trends', 'Personal Insights', 'AI Companion'].map(f => (
+            <span key={f} style={{
+              background: 'rgba(255,255,255,0.12)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '20px', padding: '0.3rem 0.85rem',
+              fontSize: '0.78rem', color: '#e2e8f0', fontWeight: 600,
+            }}>{f}</span>
+          ))}
+        </div>
+
+        {/* CTA button */}
+        <button
+          onClick={handleEnter}
+          style={{
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            border: 'none', borderRadius: '14px',
+            padding: '1rem 2.5rem',
+            color: '#fff', fontWeight: 800, fontSize: '1.1rem',
+            cursor: 'pointer', width: '100%', maxWidth: 320,
+            boxShadow: '0 8px 24px rgba(99,102,241,0.45)',
+            transition: 'transform 0.15s, box-shadow 0.15s',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(99,102,241,0.55)' }}
+          onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(99,102,241,0.45)' }}
+        >
+          {hasAccount ? 'Enter the Sanctuary →' : 'Get Started — It\'s Free'}
+        </button>
+
+        <p style={{
+          marginTop: '1rem', fontSize: '0.75rem',
+          color: 'rgba(255,255,255,0.45)',
+        }}>
+          Private · No ads · Your data stays yours
+        </p>
+      </div>
     </div>
   )
 }
