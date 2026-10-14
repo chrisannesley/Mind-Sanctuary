@@ -1652,6 +1652,68 @@ app.get("/api/companions/recommend/:sessionMode", (req, res) => {
   res.json(companion)
 })
 
+// ── Admin summary endpoint ────────────────────────────────────────────────
+// Protected by ADMIN_KEY env var. Visit:
+// https://mind-sanctuary-production.up.railway.app/api/admin/summary?key=YOUR_KEY
+app.get("/api/admin/summary", (req, res) => {
+  const adminKey = process.env.ADMIN_KEY || 'mindwell-admin-2026'
+  if (req.query.key !== adminKey) {
+    return res.status(401).json({ error: "Unauthorised" })
+  }
+
+  const now    = new Date()
+  const today  = now.toDateString()
+  const week   = new Date(now); week.setDate(week.getDate() - 7)
+
+  // Users — skip seed/demo users (id 1 = Guest User, id 2 = Demo User)
+  const allUsers    = db.data.users || []
+  const realUsers   = allUsers.filter(u => u.id > 2)
+  const newToday    = realUsers.filter(u => new Date(u.createdDate).toDateString() === today)
+  const newThisWeek = realUsers.filter(u => new Date(u.createdDate) >= week)
+  const lastSignup  = realUsers.length
+    ? realUsers.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate))[0]
+    : null
+
+  // Check-ins
+  const allCheckIns   = db.data.checkIns || []
+  const realCheckIns  = allCheckIns.filter(c => c.userId > 2)
+  const todayCheckIns = realCheckIns.filter(c => new Date(c.timestamp).toDateString() === today)
+  const weekCheckIns  = realCheckIns.filter(c => new Date(c.timestamp) >= week)
+
+  // Per-user activity
+  const userActivity = realUsers.map(u => {
+    const userCIs = realCheckIns.filter(c => c.userId === u.id)
+    const lastCI  = userCIs.length
+      ? new Date(Math.max(...userCIs.map(c => new Date(c.timestamp)))).toLocaleDateString('en-GB')
+      : 'never'
+    return {
+      id:          u.id,
+      name:        u.name,
+      joined:      new Date(u.createdDate).toLocaleDateString('en-GB'),
+      checkIns:    userCIs.length,
+      lastCheckIn: lastCI,
+    }
+  }).sort((a, b) => b.checkIns - a.checkIns)
+
+  res.json({
+    generatedAt: now.toISOString(),
+    users: {
+      total:      realUsers.length,
+      newToday:   newToday.length,
+      newThisWeek: newThisWeek.length,
+      lastSignup: lastSignup
+        ? { name: lastSignup.name, date: new Date(lastSignup.createdDate).toLocaleDateString('en-GB') }
+        : null,
+    },
+    checkIns: {
+      total:     realCheckIns.length,
+      today:     todayCheckIns.length,
+      thisWeek:  weekCheckIns.length,
+    },
+    userActivity,
+  })
+})
+
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ Mind Sanctuary backend running on http://localhost:${PORT}`)
