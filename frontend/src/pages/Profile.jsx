@@ -207,6 +207,28 @@ function Profile({ user, setUser, userId }) {
               <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0 }}><strong style={{ color: '#94a3b8' }}>Member since:</strong> {new Date(user.createdDate).toLocaleDateString()}</p>
             )}
           </div>
+
+          {/* Switch account */}
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '1rem' }}>
+            <button
+              type="button"
+              onClick={() => {
+                if (window.confirm('This will sign you out and take you to the setup screen. Continue?')) {
+                  localStorage.removeItem('mw_userId')
+                  window.location.href = '/setup'  }
+              }}
+              style={{
+                width: '100%', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)',
+                borderRadius: '10px', padding: '0.75rem', color: '#fca5a5',
+                fontWeight: 600, fontSize: '0.88rem', cursor: 'pointer',
+              }}
+            >
+              🔄 Switch Account / Sign Out
+            </button>
+            <p style={{ fontSize: '0.72rem', color: '#475569', textAlign: 'center', marginTop: '0.5rem' }}>
+              Your data stays on the server. You can sign back in by entering your name again.
+            </p>
+          </div>
         </form>
       </div>
     </div>

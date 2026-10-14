@@ -5,7 +5,7 @@ function SplashLanding({ hasAccount }) {
   const navigate = useNavigate()
 
   const handleEnter = () => {
-    navigate(hasAccount ? '/home' : '/setup')
+    navigate(hasAccount ? '/dashboard' : '/setup')
   }
 
   return (

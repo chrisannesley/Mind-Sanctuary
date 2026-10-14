@@ -41,7 +41,7 @@ export default function UserSetup({ onSetup }) {
       const user = res.data
       localStorage.setItem('mw_userId', String(user.id))
       onSetup(user)
-      navigate('/home')
+      navigate('/dashboard')
     } catch (e) {
       console.error('Setup error:', e)
       setError('Something went wrong. Please try again.')
