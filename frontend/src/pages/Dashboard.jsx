@@ -130,14 +130,13 @@ function Dashboard({ userId }) {
           </div>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          {userId === 1 && (
-            <button onClick={() => setShowAdmin(true)} style={{
-              background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)',
-              borderRadius: '10px', padding: '0.55rem 1rem', color: '#94a3b8',
-              fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
-              display: 'flex', alignItems: 'center', gap: '0.4rem',
-            }}>🛡️ Admin</button>
-          )}
+          {/* Admin button */}
+          <button onClick={() => setShowAdmin(true)} style={{
+            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '10px', padding: '0.55rem 1rem', color: '#94a3b8',
+            fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', gap: '0.4rem',
+          }}>🛡️ Admin</button>
           <button onClick={() => setShowFeedback(true)} style={{
             background: 'rgba(99,102,241,0.2)', border: '1px solid rgba(99,102,241,0.5)',
             borderRadius: '10px', padding: '0.55rem 1rem', color: '#a5b4fc',
