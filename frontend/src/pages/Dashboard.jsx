@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import WeeklyPatterns from '../components/WeeklyPatterns'
 import CrisisResources from '../components/CrisisResources'
+import FeedbackModal from '../components/FeedbackModal'
 import { getTodayCheckIn, getHabits, getCheckIns } from '../utils/api'
 import { computeInsights } from '../utils/insightsEngine'
 import { computeDashboardSnapshot } from '../utils/trendAnalytics'
@@ -100,8 +101,9 @@ function NavCard({ to, children, dailyState, className = '' }) {
 
 function Dashboard({ userId }) {
   const daily    = useDailyStatus(userId)
-  const [insights,  setInsights]  = useState([])
-  const [snapshot,  setSnapshot]  = useState(null)
+  const [insights,     setInsights]     = useState([])
+  const [snapshot,     setSnapshot]     = useState(null)
+  const [showFeedback, setShowFeedback] = useState(false)
 
   useEffect(() => {
     getCheckIns(userId)
@@ -125,7 +127,28 @@ function Dashboard({ userId }) {
             <p>All your wellness tools in one place</p>
           </div>
         </div>
+        <button
+          onClick={() => setShowFeedback(true)}
+          style={{
+            background: 'rgba(99,102,241,0.2)',
+            border: '1px solid rgba(99,102,241,0.5)',
+            borderRadius: '10px',
+            padding: '0.55rem 1rem',
+            color: '#a5b4fc',
+            fontWeight: 700,
+            fontSize: '0.85rem',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            flexShrink: 0,
+          }}
+        >
+          💬 Give Feedback
+        </button>
       </div>
+
+      <FeedbackModal isOpen={showFeedback} onClose={() => setShowFeedback(false)} userId={userId} />
 
       {/* Wellness Snapshot banner */}
       {snapshot && (

@@ -1652,7 +1652,31 @@ app.get("/api/companions/recommend/:sessionMode", (req, res) => {
   res.json(companion)
 })
 
-// ── Admin summary endpoint ────────────────────────────────────────────────
+// ── Feedback ────────────────────────────────────────────────────────────────
+app.post("/api/feedback", (req, res) => {
+  const userId = req.query.userId || null
+  const { rating, liked, improve, bugs, email } = req.body
+  if (!rating) return res.status(400).json({ error: "Rating is required" })
+
+  const entry = {
+    id:        (db.data.feedback?.length || 0) + 1,
+    userId:    userId ? parseInt(userId) : null,
+    rating,
+    liked:     liked  || '',
+    improve:   improve || '',
+    bugs:      bugs   || '',
+    email:     email  || '',
+    timestamp: new Date().toISOString(),
+  }
+
+  if (!db.data.feedback) db.data.feedback = []
+  db.data.feedback.push(entry)
+  db.save()
+
+  res.status(201).json({ message: "Feedback received. Thank you!" })
+})
+
+// Admin summary endpoint
 // Protected by ADMIN_KEY env var. Visit:
 // https://mind-sanctuary-production.up.railway.app/api/admin/summary?key=YOUR_KEY
 app.get("/api/admin/summary", (req, res) => {
@@ -1695,6 +1719,16 @@ app.get("/api/admin/summary", (req, res) => {
     }
   }).sort((a, b) => b.checkIns - a.checkIns)
 
+  const allFeedback = db.data.feedback || []
+  const recentFeedback = allFeedback
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .slice(0, 20)
+    .map(f => ({
+      ...f,
+      userName: db.data.users?.find(u => u.id === f.userId)?.name || 'Unknown',
+      date: new Date(f.timestamp).toLocaleDateString('en-GB'),
+    }))
+
   res.json({
     generatedAt: now.toISOString(),
     users: {
@@ -1711,6 +1745,13 @@ app.get("/api/admin/summary", (req, res) => {
       thisWeek:  weekCheckIns.length,
     },
     userActivity,
+    feedback: {
+      total:    allFeedback.length,
+      avgRating: allFeedback.length
+        ? (allFeedback.reduce((a, f) => a + f.rating, 0) / allFeedback.length).toFixed(1)
+        : null,
+      recent: recentFeedback,
+    },
   })
 })
 

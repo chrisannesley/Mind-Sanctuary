@@ -76,4 +76,5 @@ export const getQuoteByMood = (mood) => apiClient.get(`/api/quotes/mood/${mood}`
 export const getCrisisResources = () => apiClient.get('/api/crisis-resources')
 export const getCrisisResourcesByCountry = (country) => apiClient.get(`/api/crisis-resources/${country}`)
 
-export default apiClient
+// Feedback endpoint
+export const submitFeedback = (userId, feedbackData) => apiClient.post(`/api/feedback?userId=${userId}`, feedbackData)
