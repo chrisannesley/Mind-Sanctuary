@@ -82,4 +82,7 @@ export const submitFeedback = (userId, feedbackData) => apiClient.post(`/api/fee
 // Admin endpoint
 export const getAdminSummary = () => apiClient.get('/api/admin/summary?key=mindwell-admin-2026')
 
+// Public stats (splash screen)
+export const getPublicStats = () => apiClient.get('/api/stats')
+
 export default apiClient

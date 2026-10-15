@@ -1652,6 +1652,12 @@ app.get("/api/companions/recommend/:sessionMode", (req, res) => {
   res.json(companion)
 })
 
+// ── Public stats (used on splash screen) ─────────────────────────────────
+app.get("/api/stats", (req, res) => {
+  const realUsers = (db.data.users || []).filter(u => u.id > 2)
+  res.json({ users: realUsers.length })
+})
+
 // ── Feedback ────────────────────────────────────────────────────────────────
 app.post("/api/feedback", (req, res) => {
   const userId = req.query.userId || null

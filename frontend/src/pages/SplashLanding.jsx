@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getPublicStats } from '../utils/api'
 
 function SplashLanding({ hasAccount }) {
-  const navigate = useNavigate()
+  const navigate   = useNavigate()
+  const [count, setCount] = useState(null)
+
+  useEffect(() => {
+    getPublicStats()
+      .then(res => setCount(res.data.users))
+      .catch(() => {}) // fail silently — counter just won't show
+  }, [])
 
   const handleEnter = () => {
     navigate(hasAccount ? '/dashboard' : '/setup')
@@ -78,6 +86,30 @@ function SplashLanding({ hasAccount }) {
             }}>{f}</span>
           ))}
         </div>
+
+        {/* Live user counter */}
+        {count !== null && count > 0 && (
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+            background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
+            borderRadius: '20px', padding: '0.4rem 1rem',
+            marginBottom: '1.25rem', fontSize: '0.85rem', color: '#e2e8f0',
+          }}>
+            <span style={{ display: 'flex', gap: '-4px' }}>
+              {['#6366f1','#8b5cf6','#a78bfa'].map((c, i) => (
+                <span key={i} style={{
+                  width: 22, height: 22, borderRadius: '50%',
+                  background: c, border: '2px solid rgba(0,0,0,0.3)',
+                  display: 'inline-block', marginLeft: i > 0 ? -6 : 0,
+                }}/>
+              ))}
+            </span>
+            <span>
+              <strong style={{ color: '#fff' }}>{count.toLocaleString()}</strong>
+              {count === 1 ? ' person is' : ' people are'} already using Mind Sanctuary
+            </span>
+          </div>
+        )}
 
         {/* CTA button */}
         <button
