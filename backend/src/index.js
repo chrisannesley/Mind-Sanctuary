@@ -515,47 +515,6 @@ class Database {
     } catch (error) {
       console.error("Error saving database:", error)
     }
-    // Also persist to Postgres asynchronously
-    if (this.pgPool) {
-      this.pgPool.query('UPDATE appdata SET data = $1 WHERE id = 1', [JSON.stringify(this.data)])
-        .catch(err => console.error('Postgres save error:', err.message))
-    }
-  }
-
-  async initFromPostgres() {
-    if (!process.env.DATABASE_URL) {
-      console.log('No DATABASE_URL — using local file storage')
-      return
-    }
-    try {
-      const pgPkg = await import('pg')
-      const Pool = pgPkg.default?.Pool ?? pgPkg.Pool
-      this.pgPool = new Pool({
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false }
-      })
-      // Create table if it doesn't exist
-      await this.pgPool.query(`
-        CREATE TABLE IF NOT EXISTS appdata (
-          id INTEGER PRIMARY KEY,
-          data JSONB NOT NULL,
-          updated_at TIMESTAMPTZ DEFAULT NOW()
-        )
-      `)
-      // Load existing data
-      const result = await this.pgPool.query('SELECT data FROM appdata WHERE id = 1')
-      if (result.rows.length > 0) {
-        this.data = result.rows[0].data
-        console.log(`✅ Loaded database from PostgreSQL (${(this.data.users || []).length} users)`)
-      } else {
-        // First run — insert defaults
-        await this.pgPool.query('INSERT INTO appdata (id, data) VALUES (1, $1)', [JSON.stringify(this.data)])
-        console.log('✅ Initialised fresh database in PostgreSQL')
-      }
-    } catch (err) {
-      console.error('PostgreSQL init failed, using local storage:', err.message)
-      this.pgPool = null
-    }
   }
   }
 
@@ -1820,15 +1779,8 @@ app.get("/api/admin/summary", (req, res) => {
   })
 })
 
-// Initialise Postgres then start server
-;(async () => {
-  try {
-    await db.initFromPostgres()
-  } catch (e) {
-    console.error('Postgres init outer error:', e.message)
-  }
-
-  app.listen(PORT, () => {
+// Start server
+app.listen(PORT, () => {
   console.log(`✅ Mind Sanctuary backend running on http://localhost:${PORT}`)
   console.log(`✓ Endpoints available:`)
   console.log(`  - /api/user`)
@@ -1841,5 +1793,4 @@ app.get("/api/admin/summary", (req, res) => {
   console.log(`  - /api/crisis-resources`)
   console.log(`  - /api/reflection/*`)
   console.log(`✓ Frontend: ${process.env.FRONTEND_URL || 'http://localhost:5180'}`)
-  })
-})()
+})
