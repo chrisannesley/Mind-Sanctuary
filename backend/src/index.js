@@ -1821,9 +1821,14 @@ app.get("/api/admin/summary", (req, res) => {
 })
 
 // Initialise Postgres then start server
-await db.initFromPostgres()
+;(async () => {
+  try {
+    await db.initFromPostgres()
+  } catch (e) {
+    console.error('Postgres init outer error:', e.message)
+  }
 
-app.listen(PORT, () => {
+  app.listen(PORT, () => {
   console.log(`✅ Mind Sanctuary backend running on http://localhost:${PORT}`)
   console.log(`✓ Endpoints available:`)
   console.log(`  - /api/user`)
@@ -1836,4 +1841,5 @@ app.listen(PORT, () => {
   console.log(`  - /api/crisis-resources`)
   console.log(`  - /api/reflection/*`)
   console.log(`✓ Frontend: ${process.env.FRONTEND_URL || 'http://localhost:5180'}`)
-})
+  })
+})()
