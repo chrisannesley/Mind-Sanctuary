@@ -854,7 +854,13 @@ const companionService = new CompanionService()
 const ttsService = new ElevenLabsTTSService()
 
 app.get("/health", (req, res) => {
-  res.json({ status: "ok", message: "Mind Sanctuary backend is running" })
+  res.json({ 
+    status: "ok", 
+    message: "Mind Sanctuary backend is running",
+    dbPath: process.env.DB_PATH || 'default (local)',
+    dbPathResolved: dbPath,
+    userCount: (db.data.users || []).length,
+  })
 })
 
 // User routes
