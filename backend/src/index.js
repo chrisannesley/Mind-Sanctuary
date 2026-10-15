@@ -5,15 +5,12 @@ import bodyParser from "body-parser"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
-import { createRequire } from "module"
 import ClaudeReflectionService from "./claudeService.js"
 import CompanionService from "./companionService.js"
 import ElevenLabsTTSService from "./elevenlabsService.js"
 import beastsRouter from "./routes/beasts.js"
 
 dotenv.config()
-
-const require = createRequire(import.meta.url)
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -531,7 +528,8 @@ class Database {
       return
     }
     try {
-      const { Pool } = require('pg')
+      const pgPkg = await import('pg')
+      const Pool = pgPkg.default?.Pool ?? pgPkg.Pool
       this.pgPool = new Pool({
         connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false }
