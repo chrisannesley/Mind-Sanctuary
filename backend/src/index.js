@@ -14,7 +14,14 @@ dotenv.config()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const dbPath = process.env.DB_PATH || path.join(__dirname, "../mindwell.db")
+const dbPath = process.env.DB_PATH 
+  || (process.env.NODE_ENV === 'production' ? '/data/mindwell.db' : path.join(__dirname, "../mindwell.db"))
+
+// Ensure the directory exists (needed for Railway volume at /data)
+const dbDir = path.dirname(dbPath)
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true })
+}
 
 const app = express()
 const PORT = process.env.PORT || 3002
