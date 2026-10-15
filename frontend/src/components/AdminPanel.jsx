@@ -2,10 +2,28 @@ import React, { useState, useEffect } from 'react'
 import { X, RefreshCw } from 'lucide-react'
 import { getAdminSummary } from '../utils/api'
 
+const ADMIN_PW = 'Thu@19841960'
+const SESSION_KEY = 'mw_admin_auth'
+
 export default function AdminPanel({ isOpen, onClose }) {
+  const [authed,  setAuthed]  = useState(() => sessionStorage.getItem(SESSION_KEY) === '1')
+  const [pw,      setPw]      = useState('')
+  const [pwError, setPwError] = useState('')
   const [data,    setData]    = useState(null)
   const [loading, setLoading] = useState(false)
   const [error,   setError]   = useState('')
+
+  const handlePwSubmit = (e) => {
+    e.preventDefault()
+    if (pw === ADMIN_PW) {
+      sessionStorage.setItem(SESSION_KEY, '1')
+      setAuthed(true)
+      setPwError('')
+    } else {
+      setPwError('Incorrect password.')
+      setPw('')
+    }
+  }
 
   const load = async () => {
     setLoading(true)
@@ -23,6 +41,53 @@ export default function AdminPanel({ isOpen, onClose }) {
   useEffect(() => { if (isOpen) load() }, [isOpen])
 
   if (!isOpen) return null
+
+  // ── Password gate ─────────────────────────────────────────────
+  if (!authed) {
+    return (
+      <div style={{
+        position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        zIndex: 1000, padding: '1rem',
+      }} onClick={onClose}>
+        <div style={{
+          background: 'linear-gradient(135deg, #0f3460 0%, #16213e 100%)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          borderRadius: '16px', padding: '2rem',
+          maxWidth: 360, width: '100%',
+        }} onClick={e => e.stopPropagation()}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+            <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#f1f5f9', margin: 0 }}>🛡️ Admin Access</h2>
+            <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', display: 'flex' }}><X size={18} /></button>
+          </div>
+          <form onSubmit={handlePwSubmit}>
+            <input
+              type="password"
+              value={pw}
+              onChange={e => setPw(e.target.value)}
+              placeholder="Enter admin password"
+              autoFocus
+              style={{
+                width: '100%', boxSizing: 'border-box',
+                background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: '8px', padding: '0.7rem 1rem', color: '#f1f5f9',
+                fontSize: '0.95rem', outline: 'none', marginBottom: '0.75rem',
+              }}
+            />
+            {pwError && <p style={{ color: '#fca5a5', fontSize: '0.82rem', marginBottom: '0.75rem' }}>{pwError}</p>}
+            <button type="submit" style={{
+              width: '100%', padding: '0.75rem',
+              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              border: 'none', borderRadius: '8px', color: '#fff',
+              fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer',
+            }}>
+              Unlock
+            </button>
+          </form>
+        </div>
+      </div>
+    )
+  }
 
   const card = (label, value, color = '#60a5fa') => (
     <div style={{
