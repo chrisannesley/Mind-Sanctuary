@@ -29,8 +29,12 @@ app.use(cors({
       'http://localhost:5174',
       'http://localhost:5180',
     ]
-    // Also allow any Vercel preview URLs
-    if (allowed.includes(origin) || origin.endsWith('.vercel.app')) {
+    // Also allow any Vercel or Netlify preview/prod URLs
+    if (
+      allowed.includes(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.endsWith('.netlify.app')
+    ) {
       return callback(null, true)
     }
     callback(new Error(`CORS: origin ${origin} not allowed`))
