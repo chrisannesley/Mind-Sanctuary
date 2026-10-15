@@ -418,25 +418,36 @@
 /* Responsive */
 @media (max-width: 768px) {
   .home-header {
-    padding: 2rem 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .home-welcome {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .home-icon {
-    height: 80px;
+    height: 52px;
+    flex-shrink: 0;
+  }
+
+  /* On mobile: text flows naturally to the right of the icon — no absolute positioning */
+  .home-welcome-text {
+    position: static;
+    left: auto;
+    transform: none;
+    width: auto;
+    text-align: left;
   }
 
   .home-welcome-text h1 {
-    font-size: 1.8rem;
+    font-size: 1.15rem;
+    margin-bottom: 0.15rem;
   }
 
   .home-welcome-text p {
-    font-size: 1rem;
+    font-size: 0.78rem;
   }
 
   .home-content {
