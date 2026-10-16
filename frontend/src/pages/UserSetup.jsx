@@ -19,6 +19,7 @@ export default function UserSetup({ onSetup }) {
   const navigate    = useNavigate()
   const [name,      setName]      = useState('')
   const [concerns,  setConcerns]  = useState([])
+  const [pin,       setPin]       = useState('')
   const [loading,   setLoading]   = useState(false)
   const [error,     setError]     = useState('')
 
@@ -30,14 +31,15 @@ export default function UserSetup({ onSetup }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!name.trim())         { setError('Please enter your name.'); return }
-    if (!concerns.length)     { setError('Please select at least one area that brings you here.'); return }
+    if (!name.trim())     { setError('Please enter your name.'); return }
+    if (!concerns.length) { setError('Please select at least one area.'); return }
+    if (pin.length !== 4) { setError('Please choose a 4-digit PIN — you\'ll need it to sign in later.'); return }
 
     setLoading(true)
     setError('')
     try {
       // Backend expects a single mainConcern string — join multiples
-      const res  = await setupUser(name.trim(), concerns.join(', '))
+      const res  = await setupUser(name.trim(), concerns.join(', '), null, pin)
       const user = res.data
       localStorage.setItem('mw_userId', String(user.id))
       onSetup(user)
@@ -160,7 +162,6 @@ export default function UserSetup({ onSetup }) {
           )}
 
           <button
-            type="submit"
             disabled={loading}
             style={{
               width: '100%',

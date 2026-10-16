@@ -888,10 +888,27 @@ app.get("/api/user", (req, res) => {
 })
 
 app.post("/api/user/setup", (req, res) => {
-  const { name, mainConcern } = req.body
+  const { name, mainConcern, pin } = req.body
   if (!name || !mainConcern) return res.status(400).json({ error: "Name and main concern are required" })
-  const newUser = db.createUser({ name: name.trim(), mainConcern: mainConcern.trim(), email: "", phone: "", notificationsEnabled: false, notificationType: "email" })
+  const newUser = db.createUser({
+    name: name.trim(), mainConcern: mainConcern.trim(),
+    pin: pin ? String(pin).trim() : null,
+    email: "", phone: "", notificationsEnabled: false, notificationType: "email"
+  })
   res.status(201).json(newUser)
+})
+
+// Login — match name + PIN
+app.post("/api/user/login", (req, res) => {
+  const { name, pin } = req.body
+  if (!name || !pin) return res.status(400).json({ error: "Name and PIN are required" })
+  const match = (db.data.users || []).find(u =>
+    u.name.toLowerCase().trim() === name.toLowerCase().trim() &&
+    u.pin === String(pin).trim() &&
+    u.id > 2
+  )
+  if (!match) return res.status(401).json({ error: "No account found. Check your name and PIN." })
+  res.json(match)
 })
 
 app.put("/api/user", (req, res) => {

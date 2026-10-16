@@ -129,6 +129,20 @@ function SplashLanding({ hasAccount }) {
           {hasAccount ? 'Enter the Sanctuary →' : 'Get Started — It\'s Free'}
         </button>
 
+        {/* Returning user sign-in link */}
+        {!hasAccount && (
+          <button
+            onClick={() => navigate('/login')}
+            style={{
+              marginTop: '0.85rem', background: 'none', border: 'none',
+              color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem',
+              cursor: 'pointer', textDecoration: 'underline',
+            }}
+          >
+            Already have an account? Sign in
+          </button>
+        )}
+
         <p style={{
           marginTop: '1rem', fontSize: '0.75rem',
           color: 'rgba(255,255,255,0.45)',

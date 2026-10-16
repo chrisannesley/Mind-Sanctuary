@@ -11,7 +11,8 @@ const apiClient = axios.create({
 
 // User endpoints
 export const getUser = (userId = 1) => apiClient.get(`/api/user?userId=${userId}`)
-export const setupUser = (name, mainConcern) => apiClient.post('/api/user/setup', { name, mainConcern })
+export const setupUser = (name, mainConcern, research = null, pin = null) => apiClient.post('/api/user/setup', { name, mainConcern, research, pin })
+export const loginUser  = (name, pin)                        => apiClient.post('/api/user/login',  { name, pin })
 export const updateUser = (userId, userData) => apiClient.put(`/api/user?userId=${userId}`, userData)
 
 // Check-in endpoints
