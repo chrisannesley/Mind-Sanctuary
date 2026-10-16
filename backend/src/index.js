@@ -516,7 +516,6 @@ class Database {
       console.error("Error saving database:", error)
     }
   }
-  }
 
   getUser(id) { return this.data.users.find(u => u.id === id) }
   createUser(userData) {
