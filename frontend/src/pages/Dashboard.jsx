@@ -102,10 +102,18 @@ function NavCard({ to, children, dailyState, className = '' }) {
 
 function Dashboard({ userId }) {
   const daily    = useDailyStatus(userId)
-  const [insights,     setInsights]     = useState([])
-  const [snapshot,     setSnapshot]     = useState(null)
-  const [showFeedback, setShowFeedback] = useState(false)
-  const [showAdmin,    setShowAdmin]    = useState(false)
+  const [insights,      setInsights]      = useState([])
+  const [snapshot,      setSnapshot]      = useState(null)
+  const [showFeedback,  setShowFeedback]  = useState(false)
+  const [showAdmin,     setShowAdmin]     = useState(false)
+  const [showFeedbackBanner, setShowFeedbackBanner] = useState(
+    () => sessionStorage.getItem('mw_fb_dismissed') !== '1'
+  )
+
+  const dismissBanner = () => {
+    sessionStorage.setItem('mw_fb_dismissed', '1')
+    setShowFeedbackBanner(false)
+  }
 
   useEffect(() => {
     getCheckIns(userId)
@@ -148,6 +156,34 @@ function Dashboard({ userId }) {
 
       <FeedbackModal isOpen={showFeedback} onClose={() => setShowFeedback(false)} userId={userId} />
       <AdminPanel    isOpen={showAdmin}    onClose={() => setShowAdmin(false)} />
+
+      {/* Feedback reminder banner */}
+      {showFeedbackBanner && (
+        <div style={{
+          maxWidth: 900, margin: '0.75rem auto 0', padding: '0 1.5rem',
+        }}>
+          <div style={{
+            background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.35)',
+            borderRadius: '10px', padding: '0.7rem 1rem',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem',
+          }}>
+            <span style={{ fontSize: '0.85rem', color: '#fde68a', lineHeight: 1.4 }}>
+              💬 <strong>You're a beta tester — your feedback shapes this app.</strong> Tell us what's working and what isn't.
+            </span>
+            <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
+              <button onClick={() => { setShowFeedback(true); dismissBanner() }} style={{
+                background: '#fbbf24', border: 'none', borderRadius: '7px',
+                padding: '0.35rem 0.85rem', color: '#1a1a1a', fontWeight: 700,
+                fontSize: '0.78rem', cursor: 'pointer',
+              }}>Give Feedback</button>
+              <button onClick={dismissBanner} style={{
+                background: 'none', border: 'none', color: '#92400e',
+                fontSize: '1rem', cursor: 'pointer', padding: '0 0.25rem', lineHeight: 1,
+              }}>✕</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Wellness Snapshot banner */}
       {snapshot && (
