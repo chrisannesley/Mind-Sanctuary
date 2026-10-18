@@ -292,7 +292,15 @@ function HabitTracker({ userId }) {
       </div>
 
       {/* Add/Edit Modal */}
-      <Modal isOpen={showAddModal} onClose={() => setShowAddModal(false)} title={editingHabit ? 'Edit Goal' : 'Add New Goal'}>
+      <Modal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        title={editingHabit ? 'Edit Goal' : 'Add New Goal'}
+        onConfirm={handleSaveHabit}
+        confirmText={editingHabit ? 'Update Goal' : 'Create Goal'}
+        cancelText="Cancel"
+        showCancel={true}
+      >
         <div className="habit-form">
           <div className="form-group">
             <label>Goal Name *</label>
@@ -342,15 +350,6 @@ function HabitTracker({ userId }) {
               value={formData.goal}
               onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
             />
-          </div>
-
-          <div className="form-actions">
-            <button className="btn-cancel" onClick={() => setShowAddModal(false)}>
-              Cancel
-            </button>
-            <button className="btn-save" onClick={handleSaveHabit}>
-              {editingHabit ? 'Update Goal' : 'Create Goal'}
-            </button>
           </div>
         </div>
       </Modal>
