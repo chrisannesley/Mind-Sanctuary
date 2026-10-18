@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { createHabit, getHabits, completeHabit, updateHabit, deleteHabit } from '../utils/api'
-import Modal from '../components/Modal'
-import '../styles/HabitTracker.css'
 import { scheduleHabit, cancelHabit } from '../services/NotificationService'
+import '../styles/HabitTracker.css'
 
 function HabitTracker({ userId }) {
   const [habits, setHabits] = useState([])
@@ -292,187 +291,185 @@ function HabitTracker({ userId }) {
       </div>
 
       {/* Add/Edit Modal */}
-      <Modal
-        isOpen={showAddModal}
-        onClose={() => setShowAddModal(false)}
-        title={editingHabit ? 'Edit Goal' : 'Add New Goal'}
-        onConfirm={handleSaveHabit}
-        confirmText={editingHabit ? 'Update Goal' : 'Create Goal'}
-        cancelText="Cancel"
-        showCancel={true}
-      >
-        <div className="habit-form">
-          <div className="form-group">
-            <label>Goal Name *</label>
-            <input
-              type="text"
-              placeholder="e.g., Morning Meditation"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            />
-          </div>
+      {showAddModal && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(0,0,0,0.7)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center', padding: '1rem',
+        }}>
+          <div style={{
+            background: '#1e2a45', border: '1px solid rgba(233,69,96,0.3)',
+            borderRadius: '12px', width: '100%', maxWidth: '480px',
+            maxHeight: '90vh', display: 'flex', flexDirection: 'column',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+          }}>
+            {/* Header */}
+            <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }}>
+              <h2 style={{ margin: 0, color: '#fff', fontSize: '1.2rem', fontWeight: 700 }}>
+                {editingHabit ? 'Edit Goal' : 'Add New Goal'}
+              </h2>
+            </div>
 
-          <div className="form-group">
-            <label>Description</label>
-            <textarea
-              placeholder="Why is this goal important to you?"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              rows="2"
-            />
-          </div>
+            {/* Scrollable form body */}
+            <div style={{ padding: '1.25rem 1.5rem', overflowY: 'auto', flexGrow: 1 }}>
+              <div className="habit-form">
+                <div className="form-group">
+                  <label>Goal Name *</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., Morning Meditation"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    autoFocus
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Description</label>
+                  <textarea
+                    placeholder="Why is this goal important to you?"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    rows="2"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Frequency *</label>
+                  <select value={formData.frequency} onChange={(e) => setFormData({ ...formData, frequency: e.target.value })}>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Category *</label>
+                  <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
+                    {categories.map((cat) => (
+                      <option key={cat.value} value={cat.value}>{cat.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Target or Goal</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., 30 days consistent, complete 50 sessions"
+                    value={formData.goal}
+                    onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
+                  />
+                </div>
+              </div>
+            </div>
 
-          <div className="form-group">
-            <label>Frequency *</label>
-            <select value={formData.frequency} onChange={(e) => setFormData({ ...formData, frequency: e.target.value })}>
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Category *</label>
-            <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
-              {categories.map((cat) => (
-                <option key={cat.value} value={cat.value}>
-                  {cat.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Target or Goal</label>
-            <input
-              type="text"
-              placeholder="e.g., 30 days consistent, complete 50 sessions"
-              value={formData.goal}
-              onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
-            />
+            {/* Sticky footer */}
+            <div style={{
+              padding: '1rem 1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)',
+              display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', flexShrink: 0,
+              background: '#1e2a45', borderRadius: '0 0 12px 12px',
+            }}>
+              <button className="btn-cancel" onClick={() => setShowAddModal(false)}>Cancel</button>
+              <button className="btn-save" onClick={handleSaveHabit}>
+                {editingHabit ? 'Update Goal' : 'Create Goal'}
+              </button>
+            </div>
           </div>
         </div>
-      </Modal>
+      )}
 
       {/* Guidance Modal */}
-      <Modal isOpen={showGuide} onClose={() => setShowGuide(false)} title="How to Use My Goals and Achievements">
-        <div className="habit-guide">
-          <section className="guide-section">
-            <h3>🎯 What is a Goal?</h3>
-            <p>
-              A goal is a behavior or habit you want to build and achieve consistently. Whether it's meditation, exercise, journaling, or better sleep, your goals help you create positive routines that support your mental health journey. Each day you complete a goal, you're building toward your achievements.
-            </p>
-          </section>
-
-          <section className="guide-section">
-            <h3>✨ Key Features</h3>
-            <ul className="guide-list">
-              <li>
-                <strong>Daily Tracking:</strong> Mark each goal as complete when you achieve it. You can only mark it complete once per day.
-              </li>
-              <li>
-                <strong>Streak System:</strong> See your consecutive days counter (🔥). The longer your streak, the more you're achieving toward your goals.
-              </li>
-              <li>
-                <strong>Categories:</strong> Organize goals by type - Wellness, Exercise, Mindfulness, Sleep, Social, Creative, and Daily Tasks (like washing dishes, doing laundry, or going shopping).
-              </li>
-              <li>
-                <strong>Frequency Options:</strong> Choose Daily, Weekly, or Monthly goals based on your aspirations.
-              </li>
-              <li>
-                <strong>Progress Dashboard:</strong> See your achievement rate and how many goals you've completed today.
-              </li>
-            </ul>
-          </section>
-
-          <section className="guide-section">
-            <h3>🚀 Getting Started</h3>
-            <ol className="guide-list guide-steps">
-              <li>Click "+ Add Goal" to create your first goal</li>
-              <li>Give it a name and choose a category</li>
-              <li>Set the frequency (most goals start daily)</li>
-              <li>Add a personal reason to stay motivated</li>
-              <li>Each day, mark goals complete when you achieve them</li>
-              <li>Build your streak - watch your achievements grow!</li>
-            </ol>
-          </section>
-
-          <section className="guide-section">
-            <h3>💡 Tips for Success</h3>
-            <ul className="guide-list">
-              <li>
-                <strong>Start small:</strong> Don't add too many goals at once. 2-3 at a time is ideal for achieving momentum.
-              </li>
-              <li>
-                <strong>Be specific:</strong> Instead of "exercise", try "30-minute walk" or "yoga session".
-              </li>
-              <li>
-                <strong>Stack goals:</strong> Link new goals to existing routines (e.g., meditation right after coffee).
-              </li>
-              <li>
-                <strong>Celebrate achievements:</strong> Each day completed is progress. Streaks show your dedication to your goals.
-              </li>
-              <li>
-                <strong>Track your patterns:</strong> Your Check-In data combined with your goals shows which achievements improve your mood.
-              </li>
-            </ul>
-          </section>
-
-          <section className="guide-section">
-            <h3>📊 Goals + Check-In Connection</h3>
-            <p>
-              Your daily Check-In tracks mood and wellness, while My Goals and Achievements tracks your actions. Together, they show you which goals improve your mental health. Notice patterns: Does meditation lower stress? Does exercise boost energy? Your data reveals what works best for you.
-            </p>
-          </section>
-
-          <div className="guide-cta">
-            <button className="btn-primary" onClick={() => setShowGuide(false)}>
-              Got it, let's track my goals!
-            </button>
+      {showGuide && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(0,0,0,0.7)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center', padding: '1rem',
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '12px', width: '100%', maxWidth: '560px',
+            maxHeight: '90vh', display: 'flex', flexDirection: 'column',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+          }}>
+            <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #e5e7eb', flexShrink: 0, background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', borderRadius: '12px 12px 0 0' }}>
+              <h2 style={{ margin: 0, color: '#fff', fontSize: '1.15rem', fontWeight: 700 }}>How to Use My Goals and Achievements</h2>
+            </div>
+            <div style={{ padding: '1.25rem 1.5rem', overflowY: 'auto', flexGrow: 1 }}>
+              <div className="habit-guide">{/* guide content */}
+                <section className="guide-section">
+                  <h3>🎯 What is a Goal?</h3>
+                  <p>A goal is a behavior or habit you want to build and achieve consistently. Whether it's meditation, exercise, journaling, or better sleep, your goals help you create positive routines that support your mental health journey.</p>
+                </section>
+                <section className="guide-section">
+                  <h3>✨ Key Features</h3>
+                  <ul className="guide-list">
+                    <li><strong>Daily Tracking:</strong> Mark each goal as complete when you achieve it.</li>
+                    <li><strong>Streak System:</strong> See your consecutive days counter 🔥</li>
+                    <li><strong>Categories:</strong> Organize by Wellness, Exercise, Mindfulness, Sleep, Social, Creative, or Daily Tasks.</li>
+                    <li><strong>Frequency Options:</strong> Daily, Weekly, or Monthly goals.</li>
+                  </ul>
+                </section>
+                <section className="guide-section">
+                  <h3>🚀 Getting Started</h3>
+                  <ol className="guide-list guide-steps">
+                    <li>Click "+ Add Goal" to create your first goal</li>
+                    <li>Give it a name and choose a category</li>
+                    <li>Set the frequency (most goals start daily)</li>
+                    <li>Each day, mark goals complete when you achieve them</li>
+                  </ol>
+                </section>
+              </div>
+            </div>
+            <div style={{ padding: '1rem 1.5rem', borderTop: '1px solid #e5e7eb', display: 'flex', justifyContent: 'flex-end', flexShrink: 0 }}>
+              <button className="btn-save" onClick={() => setShowGuide(false)}>Got it!</button>
+            </div>
           </div>
         </div>
-      </Modal>
+      )}
 
       {/* Error Modal */}
-      <Modal isOpen={showErrorModal} onClose={() => setShowErrorModal(false)} title="Error">
-        <div style={{ padding: '1rem', textAlign: 'center' }}>
-          <p style={{ color: '#1a1a1a', fontSize: '1rem', marginBottom: '1.5rem' }}>
-            {errorMessage}
-          </p>
-          <button
-            className="btn-save"
-            onClick={() => setShowErrorModal(false)}
-            style={{ width: '100%' }}
-          >
-            OK
-          </button>
-        </div>
-      </Modal>
-
-      {/* Delete Confirmation Modal */}
-      <Modal isOpen={showDeleteConfirm} onClose={cancelDeleteHabit} title="Delete Goal">
-        <div style={{ padding: '1rem', textAlign: 'center' }}>
-          <p style={{ color: '#1a1a1a', fontSize: '1rem', marginBottom: '2rem' }}>
-            Are you sure you want to delete this goal?<br />
-            <span style={{ color: '#64748b', fontSize: '0.9rem' }}>This action cannot be undone.</span>
-          </p>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <button
-              className="btn-cancel"
-              onClick={cancelDeleteHabit}
-              style={{ flex: 1 }}
-            >
-              Cancel
-            </button>
-            <button
-              onClick={confirmDeleteHabit}
-              style={{ flex: 1, backgroundColor: '#ef4444', color: 'white', border: 'none', borderRadius: '8px', padding: '0.6rem 1rem', cursor: 'pointer', fontSize: '0.95rem', fontWeight: '600' }}
-            >
-              Yes, Delete
-            </button>
+      {showErrorModal && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(0,0,0,0.7)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center', padding: '1rem',
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '12px', width: '100%', maxWidth: '360px',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+          }}>
+            <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #e5e7eb', background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', borderRadius: '12px 12px 0 0' }}>
+              <h2 style={{ margin: 0, color: '#fff', fontSize: '1.1rem', fontWeight: 700 }}>Error</h2>
+            </div>
+            <div style={{ padding: '1.5rem', textAlign: 'center' }}>
+              <p style={{ color: '#1a1a1a', marginBottom: '1.5rem' }}>{errorMessage}</p>
+              <button className="btn-save" style={{ width: '100%' }} onClick={() => setShowErrorModal(false)}>OK</button>
+            </div>
           </div>
         </div>
-      </Modal>
+      )}
+
+      {/* Delete Confirm Modal */}
+      {showDeleteConfirm && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(0,0,0,0.7)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center', padding: '1rem',
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '12px', width: '100%', maxWidth: '360px',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+          }}>
+            <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #e5e7eb', background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', borderRadius: '12px 12px 0 0' }}>
+              <h2 style={{ margin: 0, color: '#fff', fontSize: '1.1rem', fontWeight: 700 }}>Delete Goal</h2>
+            </div>
+            <div style={{ padding: '1.5rem', textAlign: 'center' }}>
+              <p style={{ color: '#1a1a1a', marginBottom: '0.5rem' }}>Are you sure you want to delete this goal?</p>
+              <p style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '1.5rem' }}>This cannot be undone.</p>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <button className="btn-cancel" style={{ flex: 1 }} onClick={cancelDeleteHabit}>Cancel</button>
+                <button style={{ flex: 1, background: '#ef4444', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.75rem', fontWeight: 700, cursor: 'pointer' }} onClick={confirmDeleteHabit}>Yes, Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
