@@ -898,15 +898,22 @@ app.post("/api/user/setup", (req, res) => {
   res.status(201).json(newUser)
 })
 
-// Login — match name + PIN
+// Login — match name + optional PIN
 app.post("/api/user/login", (req, res) => {
   const { name, pin } = req.body
-  if (!name || !pin) return res.status(400).json({ error: "Name and PIN are required" })
-  const match = (db.data.users || []).find(u =>
-    u.name.toLowerCase().trim() === name.toLowerCase().trim() &&
-    u.pin === String(pin).trim() &&
-    u.id > 2
-  )
+  if (!name) return res.status(400).json({ error: "Name is required" })
+
+  const trimmedName = name.toLowerCase().trim()
+  const trimmedPin  = pin ? String(pin).trim() : ''
+
+  const match = (db.data.users || []).find(u => {
+    if (u.id <= 2) return false // never match seed/guest accounts
+    if (u.name.toLowerCase().trim() !== trimmedName) return false
+    // If account has no PIN stored, allow login by name alone (ignore any pin sent)
+    if (!u.pin) return true
+    // If account has a PIN, require it to match
+    return u.pin === trimmedPin
+  })
   if (!match) return res.status(401).json({ error: "No account found. Check your name and PIN." })
   res.json(match)
 })

@@ -210,24 +210,43 @@ function Profile({ user, setUser, userId }) {
 
           {/* Switch account */}
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '1rem' }}>
-            <button
-              type="button"
-              onClick={() => {
-                if (window.confirm('This will sign you out and take you to the setup screen. Continue?')) {
-                  localStorage.removeItem('mw_userId')
-                  window.location.href = '/setup'  }
-              }}
-              style={{
-                width: '100%', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)',
-                borderRadius: '10px', padding: '0.75rem', color: '#fca5a5',
-                fontWeight: 600, fontSize: '0.88rem', cursor: 'pointer',
-              }}
-            >
-              🔄 Switch Account / Sign Out
-            </button>
-            <p style={{ fontSize: '0.72rem', color: '#475569', textAlign: 'center', marginTop: '0.5rem' }}>
-              Your data stays on the server. You can sign back in by entering your name again.
+            <p style={{ fontSize: '0.78rem', color: '#64748b', textAlign: 'center', marginBottom: '0.75rem' }}>
+              Sign out to access a different account
             </p>
+            <div style={{ display: 'flex', gap: '0.6rem' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.confirm('Sign out and go to login? Your data stays on the server.')) {
+                    localStorage.removeItem('mw_userId')
+                    window.location.href = '/login'
+                  }
+                }}
+                style={{
+                  flex: 1, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.3)',
+                  borderRadius: '10px', padding: '0.75rem', color: '#a5b4fc',
+                  fontWeight: 600, fontSize: '0.88rem', cursor: 'pointer',
+                }}
+              >
+                🔑 Sign In as Someone Else
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.confirm('Sign out and create a new account? Your data stays on the server.')) {
+                    localStorage.removeItem('mw_userId')
+                    window.location.href = '/setup'
+                  }
+                }}
+                style={{
+                  flex: 1, background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)',
+                  borderRadius: '10px', padding: '0.75rem', color: '#fca5a5',
+                  fontWeight: 600, fontSize: '0.88rem', cursor: 'pointer',
+                }}
+              >
+                ➕ Create New Account
+              </button>
+            </div>
           </div>
         </form>
       </div>

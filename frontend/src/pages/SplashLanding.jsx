@@ -129,8 +129,24 @@ function SplashLanding({ hasAccount }) {
           {hasAccount ? 'Enter the Sanctuary →' : 'Get Started — It\'s Free'}
         </button>
 
-        {/* Returning user sign-in link */}
-        {!hasAccount && (
+        {/* Secondary actions */}
+        {hasAccount ? (
+          /* Already logged in — offer a way to switch account */
+          <button
+            onClick={() => {
+              localStorage.removeItem('mw_userId')
+              navigate('/login')
+            }}
+            style={{
+              marginTop: '0.85rem', background: 'none', border: 'none',
+              color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem',
+              cursor: 'pointer', textDecoration: 'underline',
+            }}
+          >
+            Not you? Sign in as someone else
+          </button>
+        ) : (
+          /* No session — offer sign-in for existing accounts */
           <button
             onClick={() => navigate('/login')}
             style={{

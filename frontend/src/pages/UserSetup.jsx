@@ -33,13 +33,14 @@ export default function UserSetup({ onSetup }) {
     e.preventDefault()
     if (!name.trim())     { setError('Please enter your name.'); return }
     if (!concerns.length) { setError('Please select at least one area.'); return }
-    if (pin.length !== 4) { setError('Please choose a 4-digit PIN — you\'ll need it to sign in later.'); return }
+    if (pin && pin.length !== 4) { setError('PIN must be exactly 4 digits, or leave it blank to skip.'); return }
 
     setLoading(true)
     setError('')
     try {
       // Backend expects a single mainConcern string — join multiples
-      const res  = await setupUser(name.trim(), concerns.join(', '), null, pin)
+      // Pass pin only if the user filled it in; otherwise send null (no PIN account)
+      const res  = await setupUser(name.trim(), concerns.join(', '), null, pin || null)
       const user = res.data
       localStorage.setItem('mw_userId', String(user.id))
       onSetup(user)
@@ -155,6 +156,30 @@ export default function UserSetup({ onSetup }) {
                 )
               })}
             </div>
+          </div>
+
+          {/* PIN — optional */}
+          <div style={{ marginBottom: '1.5rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, color: '#e2e8f0', fontSize: '0.88rem', marginBottom: '0.3rem' }}>
+              PIN <span style={{ fontWeight: 400, color: '#64748b', fontSize: '0.8rem' }}>(optional)</span>
+            </label>
+            <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.6rem', lineHeight: 1.5 }}>
+              Add a 4-digit PIN if you'd like to protect your account. You can skip this and still use the app.
+            </p>
+            <input
+              type="password"
+              value={pin}
+              onChange={e => setPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+              placeholder="••••  (skip if you prefer)"
+              maxLength={4}
+              inputMode="numeric"
+              style={{
+                width: '100%', boxSizing: 'border-box',
+                background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: '10px', padding: '0.75rem 1rem', color: '#f1f5f9',
+                fontSize: '1.1rem', outline: 'none', letterSpacing: '0.25em', textAlign: 'center',
+              }}
+            />
           </div>
 
           {error && (

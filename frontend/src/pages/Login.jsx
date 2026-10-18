@@ -12,10 +12,10 @@ export default function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!name.trim()) { setError('Please enter your name.'); return }
-    if (!pin.trim())  { setError('Please enter your PIN.'); return }
 
     setLoading(true); setError('')
     try {
+      // Pass pin as empty string when skipped — backend handles no-PIN accounts
       const res  = await loginUser(name.trim(), pin.trim())
       const user = res.data
       localStorage.setItem('mw_userId', String(user.id))
@@ -43,7 +43,7 @@ export default function Login({ onLogin }) {
           <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f1f5f9', marginBottom: '0.3rem' }}>
             Welcome back
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>Enter your name and PIN to continue</p>
+          <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>Enter your name to continue</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -60,11 +60,11 @@ export default function Login({ onLogin }) {
 
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={{ display: 'block', fontWeight: 600, color: '#e2e8f0', fontSize: '0.85rem', marginBottom: '0.4rem' }}>
-              4-digit PIN
+              4-digit PIN <span style={{ fontWeight: 400, color: '#64748b', fontSize: '0.8rem' }}>(if you set one)</span>
             </label>
             <input
               type="password" value={pin} onChange={e => setPin(e.target.value.replace(/\D/g,'').slice(0,4))}
-              placeholder="••••" maxLength={4} inputMode="numeric"
+              placeholder="•••• or leave blank" maxLength={4} inputMode="numeric"
               style={{ width: '100%', boxSizing: 'border-box', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '10px', padding: '0.7rem 1rem', color: '#f1f5f9', fontSize: '1.2rem', outline: 'none', letterSpacing: '0.3em', textAlign: 'center' }}
             />
           </div>
@@ -91,7 +91,7 @@ export default function Login({ onLogin }) {
         </div>
 
         <p style={{ textAlign: 'center', marginTop: '0.75rem', fontSize: '0.72rem', color: '#334155', lineHeight: 1.5 }}>
-          Forgot your PIN? Use "Switch Account" on the Profile page to start fresh.
+          No PIN? Just leave it blank and sign in with your name.
         </p>
       </div>
     </div>
