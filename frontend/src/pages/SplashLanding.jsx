@@ -112,9 +112,9 @@ function SplashLanding({ hasAccount }) {
           </div>
         )}
 
-        {/* CTA button */}
+        {/* Primary CTA — lowest commitment first */}
         <button
-          onClick={handleEnter}
+          onClick={() => navigate('/try')}
           style={{
             background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
             border: 'none', borderRadius: '14px',
@@ -127,12 +127,11 @@ function SplashLanding({ hasAccount }) {
           onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(99,102,241,0.55)' }}
           onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(99,102,241,0.45)' }}
         >
-          {hasAccount ? 'Enter the Sanctuary →' : 'Get Started — It\'s Free'}
+          {hasAccount ? 'Enter the Sanctuary →' : 'Try a free check-in — takes 2 mins'}
         </button>
 
         {/* Secondary actions */}
         {hasAccount ? (
-          /* Already logged in — offer a way to switch account */
           <button
             onClick={() => {
               localStorage.removeItem('mw_userId')
@@ -147,10 +146,9 @@ function SplashLanding({ hasAccount }) {
             Not you? Sign in as someone else
           </button>
         ) : (
-          /* No session — try-first link + sign-in */
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', marginTop: '0.85rem' }}>
             <button
-              onClick={() => navigate('/try')}
+              onClick={() => navigate('/setup')}
               style={{
                 background: 'rgba(255,255,255,0.08)',
                 border: '1px solid rgba(255,255,255,0.2)',
@@ -160,13 +158,13 @@ function SplashLanding({ hasAccount }) {
                 cursor: 'pointer', width: '100%', maxWidth: 320,
               }}
             >
-              Try a check-in first — no account needed
+              Create a free account →
             </button>
             <button
               onClick={() => navigate('/login')}
               style={{
                 background: 'none', border: 'none',
-                color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem',
+                color: 'rgba(255,255,255,0.8)', fontSize: '0.82rem',
                 cursor: 'pointer', textDecoration: 'underline',
               }}
             >
