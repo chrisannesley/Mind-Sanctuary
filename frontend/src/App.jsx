@@ -34,6 +34,7 @@ import { recordVisit } from './utils/pageVisits'
 import * as NotificationService from './services/NotificationService'
 import UserSetup from './pages/UserSetup'
 import Login from './pages/Login'
+import GuestCheckIn from './pages/GuestCheckIn'
 
 // Records every route change to localStorage for the "unvisited" Dashboard indicator
 function RouteTracker() {
@@ -98,9 +99,10 @@ function App() {
       <RouteTracker />
       <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f3460 0%, #16213e 100%)' }}>
         <Routes>
-          <Route path="/" element={<SplashLanding hasAccount={!!userId} />} />
+          <Route path="/" element={userId ? <Navigate to="/checkin" replace /> : <SplashLanding hasAccount={false} />} />
           <Route path="/setup" element={<UserSetup onSetup={handleSetup} />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/try" element={<GuestCheckIn />} />
           <Route path="/home" element={<><Navigation user={user} /><Home user={user} setUser={setUser} userId={userId} setUserId={setUserId} /></>} />
           <Route path="/checkin" element={<><Navigation user={user} /><main className="container mx-auto px-4 py-8"><CheckIn user={user} userId={userId} /></main></>} />
           <Route path="/checkin-history" element={<><Navigation user={user} /><CheckInHistory userId={userId} /></>} />

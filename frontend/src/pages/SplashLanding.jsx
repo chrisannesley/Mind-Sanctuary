@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getPublicStats } from '../utils/api'
+import DemoProfiles from '../components/DemoProfiles'
 
 function SplashLanding({ hasAccount }) {
   const navigate   = useNavigate()
@@ -146,17 +147,32 @@ function SplashLanding({ hasAccount }) {
             Not you? Sign in as someone else
           </button>
         ) : (
-          /* No session — offer sign-in for existing accounts */
-          <button
-            onClick={() => navigate('/login')}
-            style={{
-              marginTop: '0.85rem', background: 'none', border: 'none',
-              color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem',
-              cursor: 'pointer', textDecoration: 'underline',
-            }}
-          >
-            Already have an account? Sign in
-          </button>
+          /* No session — try-first link + sign-in */
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', marginTop: '0.85rem' }}>
+            <button
+              onClick={() => navigate('/try')}
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '10px',
+                padding: '0.65rem 1.5rem',
+                color: '#e2e8f0', fontSize: '0.9rem', fontWeight: 600,
+                cursor: 'pointer', width: '100%', maxWidth: 320,
+              }}
+            >
+              Try a check-in first — no account needed
+            </button>
+            <button
+              onClick={() => navigate('/login')}
+              style={{
+                background: 'none', border: 'none',
+                color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem',
+                cursor: 'pointer', textDecoration: 'underline',
+              }}
+            >
+              Already have an account? Sign in
+            </button>
+          </div>
         )}
 
         <p style={{
@@ -165,6 +181,9 @@ function SplashLanding({ hasAccount }) {
         }}>
           Private · No ads · Your data stays yours
         </p>
+
+        {/* Demo profiles — shows real-looking outcomes */}
+        <DemoProfiles />
       </div>
     </div>
   )

@@ -35,6 +35,7 @@ app.use(cors({
       'http://localhost:5173',
       'http://localhost:5174',
       'http://localhost:5180',
+      'http://localhost:5181',
     ]
     // Also allow any Vercel or Netlify preview/prod URLs
     if (
@@ -888,14 +889,21 @@ app.get("/api/user", (req, res) => {
 })
 
 app.post("/api/user/setup", (req, res) => {
-  const { name, mainConcern, pin } = req.body
+  const { name, mainConcern, pin, isDemo, story, avatar } = req.body
   if (!name || !mainConcern) return res.status(400).json({ error: "Name and main concern are required" })
   const newUser = db.createUser({
     name: name.trim(), mainConcern: mainConcern.trim(),
     pin: pin ? String(pin).trim() : null,
-    email: "", phone: "", notificationsEnabled: false, notificationType: "email"
+    email: "", phone: "", notificationsEnabled: false, notificationType: "email",
+    ...(isDemo ? { isDemo: true, story: story || '', avatar: avatar || '🙂' } : {}),
   })
   res.status(201).json(newUser)
+})
+
+// Demo users — used by the splash page to show sample outcomes
+app.get("/api/demo-users", (req, res) => {
+  const demoUsers = (db.data.users || []).filter(u => u.isDemo === true)
+  res.json(demoUsers)
 })
 
 // Login — match name + optional PIN
@@ -908,6 +916,7 @@ app.post("/api/user/login", (req, res) => {
 
   const match = (db.data.users || []).find(u => {
     if (u.id <= 2) return false // never match seed/guest accounts
+    if (u.isDemo)  return false // demo accounts are not real logins
     if (u.name.toLowerCase().trim() !== trimmedName) return false
     // If account has no PIN stored, allow login by name alone (ignore any pin sent)
     if (!u.pin) return true
