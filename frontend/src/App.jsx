@@ -100,6 +100,7 @@ function App() {
       <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f3460 0%, #16213e 100%)' }}>
         <Routes>
           <Route path="/" element={userId ? <Navigate to="/checkin" replace /> : <SplashLanding hasAccount={false} />} />
+          <Route path="/splash" element={<SplashLanding hasAccount={!!userId} />} />
           <Route path="/setup" element={<UserSetup onSetup={handleSetup} />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/try" element={<GuestCheckIn />} />
