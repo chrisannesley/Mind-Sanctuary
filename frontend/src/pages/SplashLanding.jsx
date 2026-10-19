@@ -140,7 +140,7 @@ function SplashLanding({ hasAccount }) {
             }}
             style={{
               marginTop: '0.85rem', background: 'none', border: 'none',
-              color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem',
+              color: 'rgba(255,255,255,0.8)', fontSize: '0.82rem',
               cursor: 'pointer', textDecoration: 'underline',
             }}
           >
@@ -177,7 +177,7 @@ function SplashLanding({ hasAccount }) {
 
         <p style={{
           marginTop: '1rem', fontSize: '0.75rem',
-          color: 'rgba(255,255,255,0.45)',
+          color: 'rgba(255,255,255,0.8)',
         }}>
           Private · No ads · Your data stays yours
         </p>
