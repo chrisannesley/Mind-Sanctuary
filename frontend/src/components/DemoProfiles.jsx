@@ -142,10 +142,10 @@ export default function DemoProfiles() {
     }}>
       {/* Section header */}
       <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-        <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#6366f1', fontWeight: 700, marginBottom: '0.25rem' }}>
+        <div style={{ fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#a5b4fc', fontWeight: 800, marginBottom: '0.35rem' }}>
           Real patterns. Real progress.
         </div>
-        <p style={{ fontSize: '0.85rem', color: '#e2e8f0', margin: 0 }}>
+        <p style={{ fontSize: '0.95rem', color: '#e2e8f0', margin: 0 }}>
           See what 3 months of tracking reveals
         </p>
       </div>
