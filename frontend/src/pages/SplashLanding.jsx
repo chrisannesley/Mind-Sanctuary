@@ -173,12 +173,19 @@ function SplashLanding({ hasAccount }) {
           </div>
         )}
 
-        <p style={{
-          marginTop: '1rem', fontSize: '0.75rem',
-          color: 'rgba(255,255,255,0.8)',
+        <div style={{
+          marginTop: '1rem',
+          display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap',
         }}>
-          Private · No ads · Your data stays yours
-        </p>
+          {['🔒 Private', '🚫 No ads', '🛡️ Your data stays yours'].map(item => (
+            <span key={item} style={{
+              fontSize: '0.9rem', fontWeight: 700, color: '#fff',
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '20px', padding: '0.35rem 0.85rem',
+            }}>{item}</span>
+          ))}
+        </div>
 
         {/* Demo profiles — shows real-looking outcomes */}
         <DemoProfiles />
